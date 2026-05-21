@@ -1,0 +1,14 @@
+# deps
+node_modules/
+# builds
+dist/
+packages/*/dist/
+# env & secrets (NEVER commit real secrets)
+.env
+.env.*
+!.env.example
+# tenant secret files (if you choose file-based secrets)
+tenants/*.secret.json
+# logs / os
+*.log
+.DS_Store

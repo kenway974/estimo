@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Estimo — Démo du widget d'estimation</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; background: #f5f6f8; color: #1f2937; }
+    .page { max-width: 640px; margin: 0 auto; padding: 32px 16px; }
+    h1 { font-size: 22px; }
+    p.note { color: #6b7280; font-size: 14px; }
+    #estimo-widget { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>Démo / intégration du widget</h1>
+    <p class="note">Page servie par le backend. Utilisable telle quelle en iframe :
+      <code>&lt;iframe src="https://VOTRE-BACKEND/?tenant=demo"&gt;&lt;/iframe&gt;</code>.
+      Le tenant et la couleur se passent en paramètres d'URL (<code>?tenant=demo&amp;primary=%232563eb</code>).</p>
+    <div id="estimo-widget"></div>
+  </main>
+  <!-- Lit ?tenant=...&primary=... ; data-api vide => même origine que le backend -->
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search);
+      window.EstimoConfig = {
+        tenantId: q.get('tenant') || 'demo',
+        api: q.get('api') || location.origin,
+        primaryColor: q.get('primary') || undefined,
+        target: '#estimo-widget'
+      };
+    })();
+  </script>
+  <script src="./widget.js" defer></script>
+</body>
+</html>

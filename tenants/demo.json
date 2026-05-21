@@ -1,0 +1,32 @@
+{
+  "id": "demo",
+  "name": "Agence Demo",
+  "allowedDomains": [
+    "https://www.agence-demo.re",
+    "http://localhost:5173",
+    "http://localhost:8080"
+  ],
+  "branding": {
+    "displayName": "Agence Demo",
+    "primaryColor": "#2563eb",
+    "accentColor": "#1e40af"
+  },
+  "mail": {
+    "provider": "smtp",
+    "fromEmail": "contact@agence-demo.re",
+    "fromName": "Agence Demo"
+  },
+  "crm": {
+    "provider": "none"
+  },
+  "estimation": {
+    "currency": "EUR",
+    "basePricePerM2": { "sale": 2800, "rent": 14 },
+    "propertyType": { "appartement": 1.0, "maison": 1.1, "terrain": 0.4, "local": 0.9 },
+    "condition": { "neuf": 1.15, "bon": 1.0, "a_rafraichir": 0.9, "a_renover": 0.78 },
+    "zones": { "default": 1, "97400": 1.15, "saint-denis": 1.15, "97410": 0.95, "97434": 1.25, "saint-gilles": 1.25 },
+    "features": { "parking": 0.03, "garage": 0.05, "balcon": 0.02, "terrasse": 0.04, "jardin": 0.06, "piscine": 0.08, "ascenseur": 0.02, "cave": 0.015 },
+    "rooms": { "reference": 3, "perRoomPct": 0.0 },
+    "rangePct": 0.08
+  }
+}

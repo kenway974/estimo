@@ -1,0 +1,18 @@
+{
+  "name": "estimo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Widget d'estimation immobiliere multi-agences : formulaire embarquable + backend Fastify (calcul, email au prospect, push du lead vers le mailing de l'agence).",
+  "license": "MIT",
+  "workspaces": ["packages/server", "packages/widget"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "npm run dev --workspace packages/server",
+    "dev:widget": "npm run dev --workspace packages/widget",
+    "build": "npm run build --workspace packages/widget && npm run build --workspace packages/server",
+    "build:widget": "npm run build --workspace packages/widget",
+    "build:server": "npm run build --workspace packages/server",
+    "start": "npm run start --workspace packages/server",
+    "typecheck": "npm run typecheck --workspace packages/server && npm run typecheck --workspace packages/widget"
+  }
+}
