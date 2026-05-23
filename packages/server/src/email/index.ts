@@ -27,3 +27,4 @@ export function createMailProvider(t: TenantConfig): MailProvider {
 
 export * from './types';
 export { renderEstimationEmail } from './templates/estimation';
+export { renderEstimationPdf } from './templates/estimation-pdf';

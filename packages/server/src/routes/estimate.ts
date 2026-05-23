@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { EstimateRequestSchema } from '../schemas/estimate';
 import { getTenant, type TenantConfig } from '../config/tenants';
 import { getEstimator, getMailProvider, getCrmProvider } from '../lib/services';
-import { renderEstimationEmail } from '../email';
+import { renderEstimationEmail, renderEstimationPdf } from '../email';
 import { env } from '../config/env';
 
 /** Vérifie que l'Origin du navigateur fait partie des domaines de l'agence. */
@@ -41,21 +41,38 @@ export default async function estimateRoutes(app: FastifyInstance): Promise<void
       features: data.features,
     });
 
-    // 1) Email d'estimation au prospect — best effort (ne casse pas la réponse).
+    // 1) Email d'estimation au prospect (avec PDF joint) — best effort.
     let emailSent = false;
     try {
       const mail = getMailProvider(tenant);
-      const tpl = renderEstimationEmail({
+      const emailData = {
         to: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
         agencyName: tenant.branding.displayName,
         primaryColor: tenant.branding.primaryColor,
         logoUrl: tenant.branding.logoUrl,
-        property: { transaction: data.transaction, propertyType: data.propertyType, surface: data.surface, city: data.city },
+        property: {
+          transaction: data.transaction,
+          propertyType: data.propertyType,
+          surface: data.surface,
+          rooms: data.rooms,
+          condition: data.condition,
+          postalCode: data.postalCode,
+          city: data.city,
+          features: data.features,
+        },
         result,
+      };
+      const tpl = renderEstimationEmail(emailData);
+      const pdfBuffer = await renderEstimationPdf(emailData);
+      await mail.send({
+        to: data.email,
+        subject: tpl.subject,
+        html: tpl.html,
+        text: tpl.text,
+        attachments: [{ filename: 'estimation.pdf', content: pdfBuffer, contentType: 'application/pdf' }],
       });
-      await mail.send({ to: data.email, subject: tpl.subject, html: tpl.html, text: tpl.text });
       emailSent = true;
     } catch (err) {
       req.log.error({ err, tenant: tenant.id }, 'echec envoi email estimation');
