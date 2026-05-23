@@ -22,6 +22,13 @@ export function renderEstimationEmail(d: EstimationEmailData): { subject: string
         <div style="font-size:30px;font-weight:700;margin:4px 0">${fmt(r.mid, r.currency)}${suffix}</div>
         <div style="font-size:14px;opacity:.9">Fourchette : ${fmt(r.low, r.currency)} – ${fmt(r.high, r.currency)}${suffix}</div>
       </div>
+      <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px 16px;margin:0 0 18px">
+        <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1f2937">📎 Votre dossier complet en pièce jointe</p>
+        <p style="margin:0;font-size:12.5px;color:#4b5563;line-height:1.5">Le PDF joint à cet email contient&nbsp;:
+        le récap de votre bien, l'estimation détaillée, les <strong>repères du marché local</strong>
+        (médiane DVF du quartier, positionnement de votre prix) et les <strong>frais à prévoir</strong>
+        (notaire, diagnostics obligatoires).</p>
+      </div>
       <p style="font-size:13px;color:#6b7280;line-height:1.5;margin:0 0 18px">Cette estimation automatique est fournie à titre
       indicatif et ne constitue pas une expertise. ${d.agencyName} vous recontactera pour affiner avec une visite.</p>
       <p style="margin:0">À très vite,<br><strong>${d.agencyName}</strong></p>
@@ -31,6 +38,9 @@ export function renderEstimationEmail(d: EstimationEmailData): { subject: string
   const text = `Bonjour ${d.firstName},
 Estimation indicative pour votre bien à ${d.property.city} (${d.property.surface} m²) :
 ${fmt(r.mid, r.currency)}${suffix} (fourchette ${fmt(r.low, r.currency)} - ${fmt(r.high, r.currency)}${suffix}).
+
+Votre dossier complet est joint en PDF : repères du marché local (médiane DVF du quartier, positionnement de votre prix) et frais à prévoir (notaire, diagnostics).
+
 Estimation indicative, non contractuelle. ${d.agencyName} vous recontactera.`;
 
   return { subject, html, text };

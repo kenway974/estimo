@@ -15,3 +15,5 @@ tenants/*.secret.json
 # DVF data dumps (téléchargés à la demande pour la calibration)
 scripts/dvf-data/
 scripts/dvf-output/
+# PDF de preview généré localement
+scripts/preview.pdf

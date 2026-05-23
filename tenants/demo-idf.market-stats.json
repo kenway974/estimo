@@ -1,0 +1,1228 @@
+{
+  "_meta": {
+    "source": "DVF Etalab — files.data.gouv.fr",
+    "years": [
+      2022,
+      2023,
+      2024
+    ],
+    "departments": [
+      "75",
+      "77",
+      "78",
+      "91",
+      "92",
+      "93",
+      "94",
+      "95"
+    ],
+    "calibratedAt": "2026-05-23T15:08:01.712Z",
+    "sampleSize": 377501
+  },
+  "global": {
+    "medianAppart": 5833,
+    "medianMaison": 3827
+  },
+  "byPostalCode": {
+    "75001": {
+      "medianAppart": 12857,
+      "medianMaison": null,
+      "txCount": 895,
+      "commune": "Paris 1er Arrondissement"
+    },
+    "75002": {
+      "medianAppart": 11727,
+      "medianMaison": null,
+      "txCount": 1201,
+      "commune": "Paris 2e Arrondissement"
+    },
+    "75003": {
+      "medianAppart": 12244,
+      "medianMaison": null,
+      "txCount": 1906,
+      "commune": "Paris 3e Arrondissement"
+    },
+    "75004": {
+      "medianAppart": 13000,
+      "medianMaison": 23741,
+      "txCount": 1475,
+      "commune": "Paris 4e Arrondissement"
+    },
+    "75005": {
+      "medianAppart": 12321,
+      "medianMaison": 19670,
+      "txCount": 2488,
+      "commune": "Paris 5e Arrondissement"
+    },
+    "75006": {
+      "medianAppart": 14802,
+      "medianMaison": 18387,
+      "txCount": 2249,
+      "commune": "Paris 6e Arrondissement"
+    },
+    "75007": {
+      "medianAppart": 14500,
+      "medianMaison": 23058,
+      "txCount": 2572,
+      "commune": "Paris 7e Arrondissement"
+    },
+    "75008": {
+      "medianAppart": 12636,
+      "medianMaison": 20465,
+      "txCount": 1802,
+      "commune": "Paris 8e Arrondissement"
+    },
+    "75009": {
+      "medianAppart": 11295,
+      "medianMaison": 16689,
+      "txCount": 3252,
+      "commune": "Paris 9e Arrondissement"
+    },
+    "75010": {
+      "medianAppart": 10000,
+      "medianMaison": null,
+      "txCount": 4473,
+      "commune": "Paris 10e Arrondissement"
+    },
+    "75011": {
+      "medianAppart": 10400,
+      "medianMaison": 18403,
+      "txCount": 7133,
+      "commune": "Paris 11e Arrondissement"
+    },
+    "75012": {
+      "medianAppart": 9579,
+      "medianMaison": 13163,
+      "txCount": 4941,
+      "commune": "Paris 12e Arrondissement"
+    },
+    "75013": {
+      "medianAppart": 9150,
+      "medianMaison": 13897,
+      "txCount": 4314,
+      "commune": "Paris 13e Arrondissement"
+    },
+    "75014": {
+      "medianAppart": 10000,
+      "medianMaison": 12859,
+      "txCount": 4550,
+      "commune": "Paris 14e Arrondissement"
+    },
+    "75015": {
+      "medianAppart": 10009,
+      "medianMaison": 13416,
+      "txCount": 9095,
+      "commune": "Paris 15e Arrondissement"
+    },
+    "75016": {
+      "medianAppart": 11370,
+      "medianMaison": 16685,
+      "txCount": 7141,
+      "commune": "Paris 16e Arrondissement"
+    },
+    "75017": {
+      "medianAppart": 10758,
+      "medianMaison": 14500,
+      "txCount": 7464,
+      "commune": "Paris 17e Arrondissement"
+    },
+    "75018": {
+      "medianAppart": 9408,
+      "medianMaison": 13883,
+      "txCount": 8843,
+      "commune": "Paris 18e Arrondissement"
+    },
+    "75019": {
+      "medianAppart": 8611,
+      "medianMaison": 12549,
+      "txCount": 4720,
+      "commune": "Paris 19e Arrondissement"
+    },
+    "75020": {
+      "medianAppart": 8820,
+      "medianMaison": 12071,
+      "txCount": 5849,
+      "commune": "Paris 20e Arrondissement"
+    },
+    "77000": {
+      "medianAppart": 2700,
+      "medianMaison": 3062,
+      "txCount": 1932,
+      "commune": "Melun"
+    },
+    "77100": {
+      "medianAppart": 3097,
+      "medianMaison": 3048,
+      "txCount": 1871,
+      "commune": "Meaux"
+    },
+    "77120": {
+      "medianAppart": 2656,
+      "medianMaison": 2561,
+      "txCount": 805,
+      "commune": "Mouroux"
+    },
+    "77130": {
+      "medianAppart": 2031,
+      "medianMaison": 2224,
+      "txCount": 823,
+      "commune": "Saint-Germain-Laval"
+    },
+    "77140": {
+      "medianAppart": 2327,
+      "medianMaison": 2352,
+      "txCount": 627,
+      "commune": "Saint-Pierre-lès-Nemours"
+    },
+    "77144": {
+      "medianAppart": 4657,
+      "medianMaison": 4182,
+      "txCount": 672,
+      "commune": "Montévrain"
+    },
+    "77170": {
+      "medianAppart": 3679,
+      "medianMaison": 3618,
+      "txCount": 938,
+      "commune": "Brie-Comte-Robert"
+    },
+    "77176": {
+      "medianAppart": 2769,
+      "medianMaison": 2995,
+      "txCount": 930,
+      "commune": "Savigny-le-Temple"
+    },
+    "77200": {
+      "medianAppart": 3364,
+      "medianMaison": 3782,
+      "txCount": 621,
+      "commune": "Torcy"
+    },
+    "77210": {
+      "medianAppart": 2834,
+      "medianMaison": 3531,
+      "txCount": 819,
+      "commune": "Avon"
+    },
+    "77220": {
+      "medianAppart": 3554,
+      "medianMaison": 3352,
+      "txCount": 617,
+      "commune": "Tournan-en-Brie"
+    },
+    "77230": {
+      "medianAppart": 3410,
+      "medianMaison": 3248,
+      "txCount": 839,
+      "commune": "Juilly"
+    },
+    "77240": {
+      "medianAppart": 3546,
+      "medianMaison": 3131,
+      "txCount": 617,
+      "commune": "Vert-Saint-Denis"
+    },
+    "77270": {
+      "medianAppart": 3174,
+      "medianMaison": 3571,
+      "txCount": 852,
+      "commune": "Villeparisis"
+    },
+    "77300": {
+      "medianAppart": 4571,
+      "medianMaison": 5538,
+      "txCount": 746,
+      "commune": "Fontainebleau"
+    },
+    "77310": {
+      "medianAppart": 2903,
+      "medianMaison": 3158,
+      "txCount": 705,
+      "commune": "Saint-Fargeau-Ponthierry"
+    },
+    "77330": {
+      "medianAppart": 4252,
+      "medianMaison": 3708,
+      "txCount": 597,
+      "commune": "Ozoir-la-Ferrière"
+    },
+    "77340": {
+      "medianAppart": 3952,
+      "medianMaison": 3977,
+      "txCount": 1091,
+      "commune": "Pontault-Combault"
+    },
+    "77380": {
+      "medianAppart": 2884,
+      "medianMaison": 3393,
+      "txCount": 703,
+      "commune": "Combs-la-Ville"
+    },
+    "77400": {
+      "medianAppart": 3841,
+      "medianMaison": 3977,
+      "txCount": 1517,
+      "commune": "Thorigny-sur-Marne"
+    },
+    "77410": {
+      "medianAppart": 3927,
+      "medianMaison": 3505,
+      "txCount": 717,
+      "commune": "Messy"
+    },
+    "77500": {
+      "medianAppart": 3410,
+      "medianMaison": 3928,
+      "txCount": 1605,
+      "commune": "Chelles"
+    },
+    "77550": {
+      "medianAppart": 3104,
+      "medianMaison": 3238,
+      "txCount": 603,
+      "commune": "Moissy-Cramayel"
+    },
+    "77600": {
+      "medianAppart": 4359,
+      "medianMaison": 4268,
+      "txCount": 1256,
+      "commune": "Jossigny"
+    },
+    "77680": {
+      "medianAppart": 3361,
+      "medianMaison": 3688,
+      "txCount": 614,
+      "commune": "Roissy-en-Brie"
+    },
+    "77700": {
+      "medianAppart": 4655,
+      "medianMaison": 4402,
+      "txCount": 1178,
+      "commune": "Serris"
+    },
+    "78000": {
+      "medianAppart": 6938,
+      "medianMaison": 9192,
+      "txCount": 2825,
+      "commune": "Versailles"
+    },
+    "78100": {
+      "medianAppart": 6716,
+      "medianMaison": 7600,
+      "txCount": 1482,
+      "commune": "Saint-Germain-en-Laye"
+    },
+    "78120": {
+      "medianAppart": 3974,
+      "medianMaison": 3882,
+      "txCount": 1153,
+      "commune": "Rambouillet"
+    },
+    "78180": {
+      "medianAppart": 3885,
+      "medianMaison": 4551,
+      "txCount": 993,
+      "commune": "Montigny-le-Bretonneux"
+    },
+    "78190": {
+      "medianAppart": 2858,
+      "medianMaison": 3568,
+      "txCount": 599,
+      "commune": "Trappes"
+    },
+    "78200": {
+      "medianAppart": 2727,
+      "medianMaison": 2858,
+      "txCount": 1285,
+      "commune": "Magnanville"
+    },
+    "78210": {
+      "medianAppart": 4380,
+      "medianMaison": 5215,
+      "txCount": 689,
+      "commune": "Saint-Cyr-l'École"
+    },
+    "78220": {
+      "medianAppart": 5705,
+      "medianMaison": 8085,
+      "txCount": 648,
+      "commune": "Viroflay"
+    },
+    "78280": {
+      "medianAppart": 3857,
+      "medianMaison": 4300,
+      "txCount": 622,
+      "commune": "Guyancourt"
+    },
+    "78300": {
+      "medianAppart": 3881,
+      "medianMaison": 4874,
+      "txCount": 1218,
+      "commune": "Poissy"
+    },
+    "78310": {
+      "medianAppart": 2986,
+      "medianMaison": 3370,
+      "txCount": 788,
+      "commune": "Maurepas"
+    },
+    "78370": {
+      "medianAppart": 3015,
+      "medianMaison": 3621,
+      "txCount": 996,
+      "commune": "Plaisir"
+    },
+    "78390": {
+      "medianAppart": 3250,
+      "medianMaison": 4529,
+      "txCount": 657,
+      "commune": "Bois-d'Arcy"
+    },
+    "78400": {
+      "medianAppart": 4900,
+      "medianMaison": 7457,
+      "txCount": 1099,
+      "commune": "Chatou"
+    },
+    "78500": {
+      "medianAppart": 3836,
+      "medianMaison": 5519,
+      "txCount": 1736,
+      "commune": "Sartrouville"
+    },
+    "78570": {
+      "medianAppart": 3070,
+      "medianMaison": 3726,
+      "txCount": 744,
+      "commune": "Andrésy"
+    },
+    "78600": {
+      "medianAppart": 5672,
+      "medianMaison": 7927,
+      "txCount": 1165,
+      "commune": "Le Mesnil-le-Roi"
+    },
+    "78700": {
+      "medianAppart": 3406,
+      "medianMaison": 4444,
+      "txCount": 1304,
+      "commune": "Conflans-Sainte-Honorine"
+    },
+    "78800": {
+      "medianAppart": 4704,
+      "medianMaison": 5817,
+      "txCount": 1247,
+      "commune": "Houilles"
+    },
+    "78990": {
+      "medianAppart": 2904,
+      "medianMaison": 3348,
+      "txCount": 996,
+      "commune": "Élancourt"
+    },
+    "91000": {
+      "medianAppart": 2211,
+      "medianMaison": 2904,
+      "txCount": 1350,
+      "commune": "Évry-Courcouronnes"
+    },
+    "91100": {
+      "medianAppart": 2631,
+      "medianMaison": 3237,
+      "txCount": 2029,
+      "commune": "Corbeil-Essonnes"
+    },
+    "91120": {
+      "medianAppart": 4000,
+      "medianMaison": 4896,
+      "txCount": 1079,
+      "commune": "Palaiseau"
+    },
+    "91130": {
+      "medianAppart": 2107,
+      "medianMaison": 3354,
+      "txCount": 888,
+      "commune": "Ris-Orangis"
+    },
+    "91150": {
+      "medianAppart": 2463,
+      "medianMaison": 2765,
+      "txCount": 1246,
+      "commune": "Brouy"
+    },
+    "91160": {
+      "medianAppart": 3019,
+      "medianMaison": 3688,
+      "txCount": 1167,
+      "commune": "Saulx-les-Chartreux"
+    },
+    "91170": {
+      "medianAppart": 2754,
+      "medianMaison": 3752,
+      "txCount": 873,
+      "commune": "Viry-Châtillon"
+    },
+    "91190": {
+      "medianAppart": 4138,
+      "medianMaison": 4233,
+      "txCount": 668,
+      "commune": "Gif-sur-Yvette"
+    },
+    "91200": {
+      "medianAppart": 3337,
+      "medianMaison": 4200,
+      "txCount": 893,
+      "commune": "Athis-Mons"
+    },
+    "91210": {
+      "medianAppart": 2967,
+      "medianMaison": 3776,
+      "txCount": 815,
+      "commune": "Draveil"
+    },
+    "91220": {
+      "medianAppart": 3390,
+      "medianMaison": 3333,
+      "txCount": 971,
+      "commune": "Brétigny-sur-Orge"
+    },
+    "91230": {
+      "medianAppart": 3782,
+      "medianMaison": 4118,
+      "txCount": 716,
+      "commune": "Montgeron"
+    },
+    "91250": {
+      "medianAppart": 3493,
+      "medianMaison": 3455,
+      "txCount": 610,
+      "commune": "Saint-Germain-lès-Corbeil"
+    },
+    "91260": {
+      "medianAppart": 3581,
+      "medianMaison": 3986,
+      "txCount": 755,
+      "commune": "Juvisy-sur-Orge"
+    },
+    "91270": {
+      "medianAppart": 3262,
+      "medianMaison": 3803,
+      "txCount": 793,
+      "commune": "Vigneux-sur-Seine"
+    },
+    "91290": {
+      "medianAppart": 3243,
+      "medianMaison": 3286,
+      "txCount": 645,
+      "commune": "Arpajon"
+    },
+    "91300": {
+      "medianAppart": 4206,
+      "medianMaison": 5000,
+      "txCount": 1720,
+      "commune": "Massy"
+    },
+    "91310": {
+      "medianAppart": 3396,
+      "medianMaison": 3436,
+      "txCount": 913,
+      "commune": "Linas"
+    },
+    "91330": {
+      "medianAppart": 3077,
+      "medianMaison": 4238,
+      "txCount": 1025,
+      "commune": "Yerres"
+    },
+    "91380": {
+      "medianAppart": 2545,
+      "medianMaison": 4125,
+      "txCount": 772,
+      "commune": "Chilly-Mazarin"
+    },
+    "91390": {
+      "medianAppart": 2680,
+      "medianMaison": 3839,
+      "txCount": 664,
+      "commune": "Morsang-sur-Orge"
+    },
+    "91400": {
+      "medianAppart": 4525,
+      "medianMaison": 4611,
+      "txCount": 703,
+      "commune": "Orsay"
+    },
+    "91540": {
+      "medianAppart": 3281,
+      "medianMaison": 3135,
+      "txCount": 719,
+      "commune": "Mennecy"
+    },
+    "91600": {
+      "medianAppart": 3077,
+      "medianMaison": 4070,
+      "txCount": 1362,
+      "commune": "Savigny-sur-Orge"
+    },
+    "91700": {
+      "medianAppart": 3095,
+      "medianMaison": 3654,
+      "txCount": 1422,
+      "commune": "Villiers-sur-Orge"
+    },
+    "91800": {
+      "medianAppart": 2881,
+      "medianMaison": 4055,
+      "txCount": 1130,
+      "commune": "Brunoy"
+    },
+    "91940": {
+      "medianAppart": 2388,
+      "medianMaison": 3766,
+      "txCount": 630,
+      "commune": "Les Ulis"
+    },
+    "92000": {
+      "medianAppart": 5488,
+      "medianMaison": 6743,
+      "txCount": 1469,
+      "commune": "Nanterre"
+    },
+    "92100": {
+      "medianAppart": 8855,
+      "medianMaison": 13511,
+      "txCount": 4744,
+      "commune": "Boulogne-Billancourt"
+    },
+    "92110": {
+      "medianAppart": 7247,
+      "medianMaison": 9715,
+      "txCount": 2091,
+      "commune": "Clichy"
+    },
+    "92120": {
+      "medianAppart": 7616,
+      "medianMaison": 10750,
+      "txCount": 1899,
+      "commune": "Montrouge"
+    },
+    "92130": {
+      "medianAppart": 7976,
+      "medianMaison": 10326,
+      "txCount": 2231,
+      "commune": "Issy-les-Moulineaux"
+    },
+    "92140": {
+      "medianAppart": 5829,
+      "medianMaison": 7909,
+      "txCount": 1716,
+      "commune": "Clamart"
+    },
+    "92150": {
+      "medianAppart": 7077,
+      "medianMaison": 9256,
+      "txCount": 1644,
+      "commune": "Suresnes"
+    },
+    "92160": {
+      "medianAppart": 5250,
+      "medianMaison": 6416,
+      "txCount": 1823,
+      "commune": "Antony"
+    },
+    "92170": {
+      "medianAppart": 6747,
+      "medianMaison": 9259,
+      "txCount": 966,
+      "commune": "Vanves"
+    },
+    "92190": {
+      "medianAppart": 6521,
+      "medianMaison": 8854,
+      "txCount": 1056,
+      "commune": "Meudon"
+    },
+    "92200": {
+      "medianAppart": 11029,
+      "medianMaison": 17300,
+      "txCount": 2701,
+      "commune": "Neuilly-sur-Seine"
+    },
+    "92210": {
+      "medianAppart": 6872,
+      "medianMaison": 10280,
+      "txCount": 1047,
+      "commune": "Saint-Cloud"
+    },
+    "92220": {
+      "medianAppart": 5169,
+      "medianMaison": 6630,
+      "txCount": 679,
+      "commune": "Bagneux"
+    },
+    "92240": {
+      "medianAppart": 6978,
+      "medianMaison": 8462,
+      "txCount": 689,
+      "commune": "Malakoff"
+    },
+    "92250": {
+      "medianAppart": 6888,
+      "medianMaison": 9751,
+      "txCount": 1207,
+      "commune": "La Garenne-Colombes"
+    },
+    "92270": {
+      "medianAppart": 6613,
+      "medianMaison": 9309,
+      "txCount": 1270,
+      "commune": "Bois-Colombes"
+    },
+    "92290": {
+      "medianAppart": 4878,
+      "medianMaison": 6327,
+      "txCount": 984,
+      "commune": "Châtenay-Malabry"
+    },
+    "92300": {
+      "medianAppart": 9476,
+      "medianMaison": 11873,
+      "txCount": 2734,
+      "commune": "Levallois-Perret"
+    },
+    "92310": {
+      "medianAppart": 5840,
+      "medianMaison": 8882,
+      "txCount": 696,
+      "commune": "Sèvres"
+    },
+    "92320": {
+      "medianAppart": 5950,
+      "medianMaison": 7339,
+      "txCount": 1218,
+      "commune": "Châtillon"
+    },
+    "92340": {
+      "medianAppart": 5612,
+      "medianMaison": 7741,
+      "txCount": 680,
+      "commune": "Bourg-la-Reine"
+    },
+    "92350": {
+      "medianAppart": 5824,
+      "medianMaison": 7148,
+      "txCount": 1046,
+      "commune": "Le Plessis-Robinson"
+    },
+    "92370": {
+      "medianAppart": 5714,
+      "medianMaison": 7929,
+      "txCount": 720,
+      "commune": "Chaville"
+    },
+    "92380": {
+      "medianAppart": 6093,
+      "medianMaison": 8985,
+      "txCount": 639,
+      "commune": "Garches"
+    },
+    "92400": {
+      "medianAppart": 7075,
+      "medianMaison": 9266,
+      "txCount": 3097,
+      "commune": "Courbevoie"
+    },
+    "92500": {
+      "medianAppart": 5872,
+      "medianMaison": 8186,
+      "txCount": 2809,
+      "commune": "Rueil-Malmaison"
+    },
+    "92600": {
+      "medianAppart": 6658,
+      "medianMaison": 8882,
+      "txCount": 3685,
+      "commune": "Asnières-sur-Seine"
+    },
+    "92700": {
+      "medianAppart": 5333,
+      "medianMaison": 7585,
+      "txCount": 2680,
+      "commune": "Colombes"
+    },
+    "92800": {
+      "medianAppart": 7356,
+      "medianMaison": 9483,
+      "txCount": 1597,
+      "commune": "Puteaux"
+    },
+    "93100": {
+      "medianAppart": 6429,
+      "medianMaison": 6833,
+      "txCount": 3333,
+      "commune": "Montreuil"
+    },
+    "93110": {
+      "medianAppart": 3845,
+      "medianMaison": 5000,
+      "txCount": 1320,
+      "commune": "Rosny-sous-Bois"
+    },
+    "93130": {
+      "medianAppart": 3544,
+      "medianMaison": 4481,
+      "txCount": 892,
+      "commune": "Noisy-le-Sec"
+    },
+    "93140": {
+      "medianAppart": 3053,
+      "medianMaison": 3803,
+      "txCount": 1062,
+      "commune": "Bondy"
+    },
+    "93150": {
+      "medianAppart": 3569,
+      "medianMaison": 4151,
+      "txCount": 881,
+      "commune": "Le Blanc-Mesnil"
+    },
+    "93160": {
+      "medianAppart": 4302,
+      "medianMaison": 4817,
+      "txCount": 2165,
+      "commune": "Noisy-le-Grand"
+    },
+    "93170": {
+      "medianAppart": 5589,
+      "medianMaison": 6664,
+      "txCount": 781,
+      "commune": "Bagnolet"
+    },
+    "93190": {
+      "medianAppart": 3000,
+      "medianMaison": 3805,
+      "txCount": 1588,
+      "commune": "Livry-Gargan"
+    },
+    "93200": {
+      "medianAppart": 4095,
+      "medianMaison": 4290,
+      "txCount": 1811,
+      "commune": "Saint-Denis"
+    },
+    "93220": {
+      "medianAppart": 3136,
+      "medianMaison": 3963,
+      "txCount": 1228,
+      "commune": "Gagny"
+    },
+    "93230": {
+      "medianAppart": 5633,
+      "medianMaison": 6307,
+      "txCount": 769,
+      "commune": "Romainville"
+    },
+    "93250": {
+      "medianAppart": 3732,
+      "medianMaison": 4681,
+      "txCount": 996,
+      "commune": "Villemomble"
+    },
+    "93260": {
+      "medianAppart": 7104,
+      "medianMaison": 7889,
+      "txCount": 693,
+      "commune": "Les Lilas"
+    },
+    "93270": {
+      "medianAppart": 2283,
+      "medianMaison": 3415,
+      "txCount": 951,
+      "commune": "Sevran"
+    },
+    "93290": {
+      "medianAppart": 2647,
+      "medianMaison": 3625,
+      "txCount": 964,
+      "commune": "Tremblay-en-France"
+    },
+    "93300": {
+      "medianAppart": 4226,
+      "medianMaison": 4651,
+      "txCount": 1425,
+      "commune": "Aubervilliers"
+    },
+    "93320": {
+      "medianAppart": 3315,
+      "medianMaison": 3940,
+      "txCount": 853,
+      "commune": "Les Pavillons-sous-Bois"
+    },
+    "93330": {
+      "medianAppart": 3298,
+      "medianMaison": 4181,
+      "txCount": 766,
+      "commune": "Neuilly-sur-Marne"
+    },
+    "93340": {
+      "medianAppart": 4288,
+      "medianMaison": 5302,
+      "txCount": 615,
+      "commune": "Le Raincy"
+    },
+    "93360": {
+      "medianAppart": 4196,
+      "medianMaison": 4940,
+      "txCount": 719,
+      "commune": "Neuilly-Plaisance"
+    },
+    "93370": {
+      "medianAppart": 3295,
+      "medianMaison": 3663,
+      "txCount": 640,
+      "commune": "Montfermeil"
+    },
+    "93400": {
+      "medianAppart": 6678,
+      "medianMaison": 7932,
+      "txCount": 1762,
+      "commune": "Saint-Ouen-sur-Seine"
+    },
+    "93420": {
+      "medianAppart": 2596,
+      "medianMaison": 3242,
+      "txCount": 863,
+      "commune": "Villepinte"
+    },
+    "93500": {
+      "medianAppart": 6154,
+      "medianMaison": 7903,
+      "txCount": 1614,
+      "commune": "Pantin"
+    },
+    "93600": {
+      "medianAppart": 3233,
+      "medianMaison": 3880,
+      "txCount": 1744,
+      "commune": "Aulnay-sous-Bois"
+    },
+    "93700": {
+      "medianAppart": 3396,
+      "medianMaison": 4167,
+      "txCount": 1618,
+      "commune": "Drancy"
+    },
+    "93800": {
+      "medianAppart": 2728,
+      "medianMaison": 3736,
+      "txCount": 1157,
+      "commune": "Épinay-sur-Seine"
+    },
+    "94000": {
+      "medianAppart": 3774,
+      "medianMaison": 5992,
+      "txCount": 1981,
+      "commune": "Créteil"
+    },
+    "94100": {
+      "medianAppart": 5602,
+      "medianMaison": 7664,
+      "txCount": 2197,
+      "commune": "Saint-Maur-des-Fossés"
+    },
+    "94120": {
+      "medianAppart": 6173,
+      "medianMaison": 7482,
+      "txCount": 1564,
+      "commune": "Fontenay-sous-Bois"
+    },
+    "94130": {
+      "medianAppart": 6364,
+      "medianMaison": 8279,
+      "txCount": 1450,
+      "commune": "Nogent-sur-Marne"
+    },
+    "94140": {
+      "medianAppart": 5269,
+      "medianMaison": 5995,
+      "txCount": 1316,
+      "commune": "Alfortville"
+    },
+    "94160": {
+      "medianAppart": 9028,
+      "medianMaison": 11952,
+      "txCount": 862,
+      "commune": "Saint-Mandé"
+    },
+    "94170": {
+      "medianAppart": 5564,
+      "medianMaison": 7366,
+      "txCount": 1537,
+      "commune": "Le Perreux-sur-Marne"
+    },
+    "94200": {
+      "medianAppart": 5257,
+      "medianMaison": 6694,
+      "txCount": 1545,
+      "commune": "Ivry-sur-Seine"
+    },
+    "94210": {
+      "medianAppart": 5704,
+      "medianMaison": 7663,
+      "txCount": 1055,
+      "commune": "Saint-Maur-des-Fossés"
+    },
+    "94220": {
+      "medianAppart": 7925,
+      "medianMaison": 8997,
+      "txCount": 1081,
+      "commune": "Charenton-le-Pont"
+    },
+    "94230": {
+      "medianAppart": 5173,
+      "medianMaison": 6517,
+      "txCount": 792,
+      "commune": "Cachan"
+    },
+    "94240": {
+      "medianAppart": 4057,
+      "medianMaison": 5833,
+      "txCount": 868,
+      "commune": "L'Haÿ-les-Roses"
+    },
+    "94260": {
+      "medianAppart": 3348,
+      "medianMaison": 5103,
+      "txCount": 865,
+      "commune": "Fresnes"
+    },
+    "94300": {
+      "medianAppart": 8964,
+      "medianMaison": 11601,
+      "txCount": 2387,
+      "commune": "Vincennes"
+    },
+    "94320": {
+      "medianAppart": 3766,
+      "medianMaison": 4788,
+      "txCount": 986,
+      "commune": "Thiais"
+    },
+    "94340": {
+      "medianAppart": 5936,
+      "medianMaison": 7694,
+      "txCount": 726,
+      "commune": "Joinville-le-Pont"
+    },
+    "94350": {
+      "medianAppart": 3856,
+      "medianMaison": 4858,
+      "txCount": 1042,
+      "commune": "Villiers-sur-Marne"
+    },
+    "94360": {
+      "medianAppart": 4944,
+      "medianMaison": 6556,
+      "txCount": 640,
+      "commune": "Bry-sur-Marne"
+    },
+    "94370": {
+      "medianAppart": 3695,
+      "medianMaison": 4588,
+      "txCount": 770,
+      "commune": "Sucy-en-Brie"
+    },
+    "94400": {
+      "medianAppart": 4091,
+      "medianMaison": 5406,
+      "txCount": 1799,
+      "commune": "Vitry-sur-Seine"
+    },
+    "94420": {
+      "medianAppart": 3776,
+      "medianMaison": 4547,
+      "txCount": 658,
+      "commune": "Le Plessis-Trévise"
+    },
+    "94430": {
+      "medianAppart": 3262,
+      "medianMaison": 4588,
+      "txCount": 674,
+      "commune": "Chennevières-sur-Marne"
+    },
+    "94440": {
+      "medianAppart": 3940,
+      "medianMaison": 3670,
+      "txCount": 595,
+      "commune": "Villecresnes"
+    },
+    "94450": {
+      "medianAppart": 3500,
+      "medianMaison": 3774,
+      "txCount": 791,
+      "commune": "Limeil-Brévannes"
+    },
+    "94500": {
+      "medianAppart": 3750,
+      "medianMaison": 4808,
+      "txCount": 1847,
+      "commune": "Champigny-sur-Marne"
+    },
+    "94600": {
+      "medianAppart": 3703,
+      "medianMaison": 4605,
+      "txCount": 1325,
+      "commune": "Choisy-le-Roi"
+    },
+    "94700": {
+      "medianAppart": 5667,
+      "medianMaison": 7159,
+      "txCount": 1785,
+      "commune": "Maisons-Alfort"
+    },
+    "94800": {
+      "medianAppart": 5214,
+      "medianMaison": 5778,
+      "txCount": 1363,
+      "commune": "Villejuif"
+    },
+    "95000": {
+      "medianAppart": 3048,
+      "medianMaison": 3253,
+      "txCount": 967,
+      "commune": "Cergy"
+    },
+    "95100": {
+      "medianAppart": 3333,
+      "medianMaison": 4207,
+      "txCount": 2832,
+      "commune": "Argenteuil"
+    },
+    "95110": {
+      "medianAppart": 3412,
+      "medianMaison": 4690,
+      "txCount": 830,
+      "commune": "Sannois"
+    },
+    "95120": {
+      "medianAppart": 3750,
+      "medianMaison": 4821,
+      "txCount": 839,
+      "commune": "Ermont"
+    },
+    "95130": {
+      "medianAppart": 3000,
+      "medianMaison": 4319,
+      "txCount": 1776,
+      "commune": "Franconville"
+    },
+    "95150": {
+      "medianAppart": 2900,
+      "medianMaison": 4054,
+      "txCount": 962,
+      "commune": "Taverny"
+    },
+    "95160": {
+      "medianAppart": 4034,
+      "medianMaison": 4977,
+      "txCount": 783,
+      "commune": "Montmorency"
+    },
+    "95170": {
+      "medianAppart": 3597,
+      "medianMaison": 4438,
+      "txCount": 839,
+      "commune": "Deuil-la-Barre"
+    },
+    "95190": {
+      "medianAppart": 2933,
+      "medianMaison": 3505,
+      "txCount": 605,
+      "commune": "Goussainville"
+    },
+    "95200": {
+      "medianAppart": 2000,
+      "medianMaison": 3300,
+      "txCount": 856,
+      "commune": "Sarcelles"
+    },
+    "95210": {
+      "medianAppart": 3707,
+      "medianMaison": 4929,
+      "txCount": 596,
+      "commune": "Saint-Gratien"
+    },
+    "95220": {
+      "medianAppart": 3864,
+      "medianMaison": 4255,
+      "txCount": 995,
+      "commune": "Herblay-sur-Seine"
+    },
+    "95240": {
+      "medianAppart": 4373,
+      "medianMaison": 4626,
+      "txCount": 902,
+      "commune": "Cormeilles-en-Parisis"
+    },
+    "95270": {
+      "medianAppart": 3484,
+      "medianMaison": 3341,
+      "txCount": 753,
+      "commune": "Viarmes"
+    },
+    "95300": {
+      "medianAppart": 3148,
+      "medianMaison": 3688,
+      "txCount": 998,
+      "commune": "Pontoise"
+    },
+    "95310": {
+      "medianAppart": 3185,
+      "medianMaison": 3498,
+      "txCount": 701,
+      "commune": "Saint-Ouen-l'Aumône"
+    },
+    "95320": {
+      "medianAppart": 3561,
+      "medianMaison": 4342,
+      "txCount": 591,
+      "commune": "Saint-Leu-la-Forêt"
+    },
+    "95400": {
+      "medianAppart": 2364,
+      "medianMaison": 3414,
+      "txCount": 836,
+      "commune": "Arnouville"
+    },
+    "95470": {
+      "medianAppart": 2969,
+      "medianMaison": 3125,
+      "txCount": 625,
+      "commune": "Saint-Witz"
+    },
+    "95500": {
+      "medianAppart": 2873,
+      "medianMaison": 3387,
+      "txCount": 644,
+      "commune": "Le Thillay"
+    },
+    "95600": {
+      "medianAppart": 3529,
+      "medianMaison": 4858,
+      "txCount": 764,
+      "commune": "Eaubonne"
+    },
+    "95800": {
+      "medianAppart": 3386,
+      "medianMaison": 3330,
+      "txCount": 1254,
+      "commune": "Cergy"
+    },
+    "95870": {
+      "medianAppart": 4000,
+      "medianMaison": 4863,
+      "txCount": 908,
+      "commune": "Bezons"
+    }
+  }
+}

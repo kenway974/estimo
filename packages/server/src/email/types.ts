@@ -1,4 +1,6 @@
 import type { EstimationResult } from '../estimation/types';
+import type { TransactionFees } from '../estimation/fees';
+import type { MarketPostalCodeStats } from '../config/market-stats';
 
 export interface EstimationEmailData {
   to: string;
@@ -18,6 +20,10 @@ export interface EstimationEmailData {
     features?: string[];
   };
   result: EstimationResult;
+  /** Statistiques marché DVF pour le code postal (optionnel — section PDF "Repères du marché"). */
+  marketStats?: MarketPostalCodeStats | null;
+  /** Frais transactionnels estimés (optionnel — section PDF "Frais à prévoir"). */
+  fees?: TransactionFees | null;
 }
 
 /** Une pièce jointe à un email (PDF, image, etc.). */
