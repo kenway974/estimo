@@ -66,7 +66,7 @@ export function loadTenants(): TenantConfig[] {
   if (!fs.existsSync(dir)) {
     throw new Error(`[tenants] Dossier introuvable : ${dir}`);
   }
-  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json') && !f.endsWith('.secret.json'));
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json') && !f.endsWith('.secret.json') && !f.endsWith('.market-stats.json'));
   tenants.clear();
   for (const file of files) {
     const raw = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
