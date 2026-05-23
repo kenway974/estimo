@@ -17,7 +17,8 @@
     "fromName": "Agence Demo IDF"
   },
   "crm": {
-    "provider": "none"
+    "provider": "brevo",
+    "doubleOptIn": false
   },
   "estimation": {
     "currency": "EUR",
