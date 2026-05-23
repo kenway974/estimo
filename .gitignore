@@ -12,3 +12,6 @@ tenants/*.secret.json
 # logs / os
 *.log
 .DS_Store
+# DVF data dumps (téléchargés à la demande pour la calibration)
+scripts/dvf-data/
+scripts/dvf-output/
