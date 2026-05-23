@@ -8,7 +8,7 @@
 import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { renderEstimationPdf } from '../packages/server/src/email/templates/estimation-pdf';
+import { renderEstimationPdf, closePdfRenderer } from '../packages/server/src/email/templates/estimation-pdf';
 import type { EstimationEmailData } from '../packages/server/src/email/types';
 import { computeTransactionFees } from '../packages/server/src/estimation/fees';
 
@@ -52,14 +52,20 @@ const sampleData: EstimationEmailData = {
 };
 
 async function main(): Promise<void> {
+  console.log('⏳  Lancement de Chromium...');
+  const t0 = Date.now();
   const pdf = await renderEstimationPdf(sampleData);
   const out = path.join(OUT, 'preview.pdf');
   writeFileSync(out, pdf);
-  console.log(`✅  PDF généré : ${out}  (${(pdf.length / 1024).toFixed(1)} KB)`);
+  console.log(`✅  PDF généré en ${Date.now() - t0}ms : ${out}  (${(pdf.length / 1024).toFixed(1)} KB)`);
   console.log(`   Ouvre-le pour vérifier le design avant commit.`);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exitCode = 1;
+  })
+  .finally(async () => {
+    await closePdfRenderer();
+  });
