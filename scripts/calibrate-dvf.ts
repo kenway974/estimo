@@ -11,7 +11,7 @@
  *
  * Usage : npm run calibrate:dvf
  */
-import { createWriteStream, existsSync, mkdirSync, createReadStream, writeFileSync } from 'node:fs';
+import { createWriteStream, existsSync, mkdirSync, createReadStream, writeFileSync, readFileSync } from 'node:fs';
 import { pipeline } from 'node:stream/promises';
 import { createGunzip } from 'node:zlib';
 import { parse } from 'csv-parse';
@@ -230,32 +230,41 @@ async function main(): Promise<void> {
     rangePct: 0.08,
   };
 
-  const tenantConfig = {
+  // Valeurs par défaut utilisées seulement si le tenant n'existe pas encore.
+  // Si le tenant existe déjà, on PRESERVE ses customisations (allowedDomains,
+  // mail, crm, branding…) et on n'écrase QUE les champs estimation + _meta.
+  const newMeta = {
+    calibratedAt: new Date().toISOString(),
+    source: 'DVF Etalab — files.data.gouv.fr',
+    years: YEARS,
+    departments: DEPARTMENTS,
+    sampleSize: cleanCount,
+    method: 'médiane prix/m² par code postal, filtrée mutations mono-lot, prix ∈ [1k, 30k] €/m²',
+  };
+  const defaultTenant = {
     id: 'demo-idf',
     name: 'Agence Demo Île-de-France',
     allowedDomains: ['http://localhost:5173', 'http://localhost:8080'],
-    branding: {
-      displayName: 'Agence Demo IDF',
-      primaryColor: '#2563eb',
-      accentColor: '#1e40af',
-    },
+    branding: { displayName: 'Agence Demo IDF', primaryColor: '#2563eb', accentColor: '#1e40af' },
     mail: { provider: 'smtp', fromEmail: 'tikenspam2@gmail.com', fromName: 'Agence Demo IDF' },
     crm: { provider: 'none' },
     estimation: calibratedEstimation,
-    _meta: {
-      calibratedAt: new Date().toISOString(),
-      source: 'DVF Etalab — files.data.gouv.fr',
-      years: YEARS,
-      departments: DEPARTMENTS,
-      sampleSize: cleanCount,
-      method: 'médiane prix/m² par code postal, filtrée mutations mono-lot, prix ∈ [1k, 30k] €/m²',
-    },
+    _meta: newMeta,
   };
 
-  // 6) Écriture des fichiers de sortie
+  // 6) Écriture des fichiers de sortie (merge avec l'existant si présent)
   const tenantPath = path.join(REPO_ROOT, 'tenants', 'demo-idf.json');
+  let tenantConfig: Record<string, unknown>;
+  if (existsSync(tenantPath)) {
+    const existing = JSON.parse(readFileSync(tenantPath, 'utf8')) as Record<string, unknown>;
+    tenantConfig = { ...existing, estimation: calibratedEstimation, _meta: newMeta };
+    console.log(`\n♻️   Tenant existant trouvé : seules les sections estimation + _meta sont mises à jour`);
+  } else {
+    tenantConfig = defaultTenant;
+    console.log(`\n✨  Nouveau tenant créé avec les valeurs par défaut`);
+  }
   writeFileSync(tenantPath, JSON.stringify(tenantConfig, null, 2) + '\n');
-  console.log(`\n✅  Tenant calibré écrit : tenants/demo-idf.json`);
+  console.log(`✅  Tenant calibré écrit : tenants/demo-idf.json`);
 
   // Rapport markdown
   const reportLines = [
@@ -323,6 +332,36 @@ async function main(): Promise<void> {
   const statsPath = path.join(OUT_DIR, 'zones-full.json');
   writeFileSync(statsPath, JSON.stringify({ medianAppartIdf, medianMaisonIdf, zones: zoneStats }, null, 2));
   console.log(`📦  Stats détaillées : scripts/dvf-output/zones-full.json`);
+
+  // Stats marché par code postal — chargées au runtime par le serveur pour
+  // enrichir le PDF d'estimation envoyé au prospect (positionnement marché).
+  const marketStats = {
+    _meta: {
+      source: 'DVF Etalab — files.data.gouv.fr',
+      years: YEARS,
+      departments: DEPARTMENTS,
+      calibratedAt: new Date().toISOString(),
+      sampleSize: cleanCount,
+    },
+    global: {
+      medianAppart: Math.round(medianAppartIdf),
+      medianMaison: Math.round(medianMaisonIdf),
+    },
+    byPostalCode: Object.fromEntries(
+      topZones.map((z) => [
+        z.cp,
+        {
+          medianAppart: z.medianAppart,
+          medianMaison: z.medianMaison || null,
+          txCount: z.count,
+          commune: z.commune ?? null,
+        },
+      ]),
+    ),
+  };
+  const marketStatsPath = path.join(REPO_ROOT, 'tenants', 'demo-idf.market-stats.json');
+  writeFileSync(marketStatsPath, JSON.stringify(marketStats, null, 2) + '\n');
+  console.log(`📊  Stats marché tenant : tenants/demo-idf.market-stats.json`);
 
   console.log(`\n🎉  Terminé.`);
 }
