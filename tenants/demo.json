@@ -12,7 +12,7 @@
     "primaryColor": "#2563eb",
     "accentColor": "#1e40af"
   },
-  "mail": { "provider": "smtp", "fromEmail": "tikenspam2@gmail.com", "fromName": "Agence Demo" },
+  "mail": { "provider": "brevo", "fromEmail": "tikenspam2@gmail.com", "fromName": "Agence Demo" },
   "crm": {
     "provider": "none"
   },

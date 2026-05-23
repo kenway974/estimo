@@ -12,7 +12,7 @@
     "accentColor": "#1e40af"
   },
   "mail": {
-    "provider": "smtp",
+    "provider": "brevo",
     "fromEmail": "tikenspam2@gmail.com",
     "fromName": "Agence Demo IDF"
   },
