@@ -46,7 +46,26 @@ Ajouter le bloc dans un module HTML libre ou dans le template de la page concern
 
 ## Pré-requis côté backend (à faire une fois par agence)
 - Déclarer le domaine du site dans `allowedDomains` (`tenants/<id>.json`).
-- Renseigner les secrets mailing/CRM en variables d'environnement.
+- Renseigner les secrets mail / CRM en variables d'environnement (voir [ADDING-A-TENANT.md](./ADDING-A-TENANT.md)).
 
-> L'estimation est **indicative** (non contractuelle). Le prospect reçoit son
-> estimation par email ; ses coordonnées sont poussées dans l'outil mailing de l'agence.
+## Ce que le prospect reçoit
+
+Après soumission du formulaire :
+1. **Estimation à l'écran** (fourchette basse / haute / centrée).
+2. **Email transactionnel** envoyé sous quelques secondes, avec :
+   - Le récap HTML brandé aux couleurs de l'agence.
+   - Un **PDF d'estimation A4 brandé** en pièce jointe (logo, sections "Votre bien" + "Notre estimation", disclaimer non-contractuel).
+3. **Lead transmis au CRM de l'agence** avec attributs `PRENOM`, `NOM`, `SMS` (au format E.164), `TELEPHONE`, `VILLE`, `SURFACE`, `TYPE_BIEN`, `ESTIMATION` — prêts pour les campagnes de relance et la segmentation.
+
+## RGPD et mentions légales
+
+Le formulaire intègre une **case de consentement explicite** (obligatoire avant
+soumission). L'agence (responsable de traitement) doit publier ses propres
+mentions légales et politique de confidentialité ; Estimo fournit des **templates
+à personnaliser** :
+
+- [Mentions légales](./MENTIONS-LEGALES.md)
+- [Politique de confidentialité](./CONFIDENTIALITE.md)
+
+> L'estimation est **indicative** (non contractuelle). Ces points sont rappelés
+> dans le mail HTML, dans le PDF joint, et dans la politique de confidentialité.
