@@ -3,6 +3,7 @@
   "name": "Agence Demo",
   "allowedDomains": [
     "https://www.agence-demo.re",
+    "https://estimoserver-production.up.railway.app",
     "http://localhost:5173",
     "http://localhost:8080"
   ],
