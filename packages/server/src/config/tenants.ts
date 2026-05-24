@@ -66,7 +66,12 @@ export function loadTenants(): TenantConfig[] {
   if (!fs.existsSync(dir)) {
     throw new Error(`[tenants] Dossier introuvable : ${dir}`);
   }
-  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json') && !f.endsWith('.secret.json') && !f.endsWith('.market-stats.json'));
+  // On ne charge QUE les fichiers tenant <id>.json (un seul point avant .json).
+  // Cela exclut automatiquement les fichiers annexes versionnés à côté :
+  //   <id>.market-stats.json (stats DVF par CP)
+  //   <id>.comparables.json  (ventes récentes pour le PDF)
+  //   <id>.secret.json       (secrets file-based, si jamais utilisé)
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.json') && f.split('.').length === 2);
   tenants.clear();
   for (const file of files) {
     const raw = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
