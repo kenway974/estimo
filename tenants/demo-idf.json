@@ -4,6 +4,9 @@
   "allowedDomains": [
     "https://estimoserver-production.up.railway.app",
     "https://ephemeral-gallery.vercel.app",
+    "https://ephemeral-gallery-kenway974s-projects.vercel.app",
+    "https://ephemeral-gallery-git-main-kenway974s-projects.vercel.app",
+    "http://localhost:3000",
     "http://localhost:5173",
     "http://localhost:8080"
   ],
