@@ -24,6 +24,7 @@
     "provider": "brevo",
     "doubleOptIn": false
   },
+  "agencyEmail": "tikenspam2@gmail.com",
   "estimation": {
     "currency": "EUR",
     "basePricePerM2": {

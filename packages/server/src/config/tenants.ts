@@ -36,6 +36,8 @@ export const TenantFileSchema = z.object({
     mailchimpServerPrefix: z.string().optional(), // ex "us21", requis si mailchimp
     doubleOptIn: z.boolean().default(false),
   }),
+  /** Adresse email qui reçoit les demandes de RDV. Par défaut : mail.fromEmail. */
+  agencyEmail: z.string().email().optional(),
   estimation: EstimationConfigSchema,
 });
 

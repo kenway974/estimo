@@ -8,6 +8,7 @@ import security from './plugins/security';
 import corsPlugin from './plugins/cors';
 import healthRoutes from './routes/health';
 import estimateRoutes from './routes/estimate';
+import bookingRoutes from './routes/booking';
 
 /** Construit l'instance Fastify (réutilisable en tests). */
 export async function buildApp(): Promise<FastifyInstance> {
@@ -26,6 +27,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(corsPlugin);
   await app.register(healthRoutes);
   await app.register(estimateRoutes);
+  await app.register(bookingRoutes);
 
   // Sert le widget compilé : https://<backend>/widget.js + page de démo.
   const widgetDist = process.env.WIDGET_DIST ?? path.resolve(process.cwd(), 'packages/widget/dist');
