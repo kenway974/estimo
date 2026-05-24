@@ -1,6 +1,7 @@
 import type { EstimationEmailData } from '../types';
 import type { MarketPostalCodeStats } from '../../config/market-stats';
 import type { TransactionFees } from '../../estimation/fees';
+import type { MatchedComparable } from '../../estimation/comparables';
 
 /**
  * Template HTML d'estimation. Conçu pour être rendu par Puppeteer en PDF A4.
@@ -31,6 +32,7 @@ export function renderEstimationHtml(d: EstimationEmailData): string {
     ${d.marketStats && d.result.pricePerM2 && d.property.transaction === 'sale'
       ? marketBlock(d.marketStats, d.result.pricePerM2, d.property.propertyType, d.property.postalCode, fmtNum)
       : ''}
+    ${d.comparables && d.comparables.length > 0 ? comparablesBlock(d.comparables, fmt, fmtNum) : ''}
     ${d.fees && d.property.transaction === 'sale' ? feesBlock(d.fees, fmt) : ''}
     ${disclaimerBlock(d)}
     ${footerBlock(d, dateStr)}
@@ -179,6 +181,39 @@ function marketBlock(
   </section>`;
 }
 
+function comparablesBlock(comps: MatchedComparable[], fmt: (n: number) => string, fmtNum: (n: number) => string): string {
+  const rows = comps.map((c) => {
+    const roomsLabel = c.rooms ? ` · ${c.rooms} pièce${c.rooms > 1 ? 's' : ''}` : '';
+    const date = formatMonthYear(c.date);
+    return `<div class="comp-row">
+      <div class="comp-main">
+        <div class="comp-title">${c.type} ${c.surface} m²${roomsLabel}</div>
+        <div class="comp-sub">Vendu en ${date} · secteur ${c.postalCode}</div>
+      </div>
+      <div class="comp-prices">
+        <div class="comp-price">${fmt(c.price)}</div>
+        <div class="comp-perm2">${fmtNum(c.pricePerM2)} €/m²</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  return `<section class="block">
+    <h2 class="section-title">Ventes récentes dans le quartier</h2>
+    <p class="comp-intro">Voici ${comps.length === 1 ? 'une vente récente' : `les ${comps.length} ventes les plus récentes`} d'un bien similaire au vôtre dans le même secteur (source DVF, données publiques anonymisées).</p>
+    <div class="comp-list">
+      ${rows}
+    </div>
+  </section>`;
+}
+
+function formatMonthYear(yyyymm: string): string {
+  const [y, m] = yyyymm.split('-');
+  if (!y || !m) return yyyymm;
+  const months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+  const idx = Number(m) - 1;
+  return `${months[idx] ?? m} ${y}`;
+}
+
 function feesBlock(fees: TransactionFees, fmt: (n: number) => string): string {
   return `<section class="block">
     <h2 class="section-title">Frais à prévoir si vente</h2>
@@ -302,6 +337,18 @@ html, body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFo
 .market-conclusion { margin: 14pt 0 8pt; font-size: 10.5pt; color: #1f2937; line-height: 1.55; }
 .market-source { margin: 0; padding-top: 10pt; border-top: 1pt solid #e5e7eb; font-size: 8.5pt; color: #6b7280; display: flex; align-items: center; gap: 8pt; }
 .market-source svg { width: 12pt; height: 12pt; flex-shrink: 0; color: #9ca3af; }
+
+/* ── Comparables ── */
+.comp-intro { margin: 0 0 12pt; font-size: 10pt; color: #4b5563; line-height: 1.5; }
+.comp-list { display: flex; flex-direction: column; gap: 8pt; }
+.comp-row { display: flex; justify-content: space-between; align-items: center; gap: 14pt; background: #ffffff; border: 1pt solid #e5e7eb; border-radius: 8pt; padding: 12pt 14pt; }
+.comp-row::before { content: ''; display: block; width: 4pt; align-self: stretch; background: ${accent}; border-radius: 2pt; margin-right: 4pt; }
+.comp-main { flex: 1; min-width: 0; }
+.comp-title { font-size: 11pt; font-weight: 700; color: #111827; line-height: 1.25; }
+.comp-sub { font-size: 9pt; color: #6b7280; margin-top: 3pt; font-weight: 500; }
+.comp-prices { text-align: right; flex-shrink: 0; }
+.comp-price { font-size: 13pt; font-weight: 700; color: #111827; line-height: 1.2; }
+.comp-perm2 { font-size: 9pt; color: #6b7280; margin-top: 2pt; font-weight: 500; }
 
 /* ── Fees ── */
 .fees-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10pt; }

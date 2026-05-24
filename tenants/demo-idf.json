@@ -3,6 +3,7 @@
   "name": "Agence Demo Île-de-France",
   "allowedDomains": [
     "https://estimoserver-production.up.railway.app",
+    "https://ephemeral-gallery.vercel.app",
     "http://localhost:5173",
     "http://localhost:8080"
   ],
@@ -258,7 +259,7 @@
     "rangePct": 0.08
   },
   "_meta": {
-    "calibratedAt": "2026-05-23T15:08:01.708Z",
+    "calibratedAt": "2026-05-23T15:46:54.847Z",
     "source": "DVF Etalab — files.data.gouv.fr",
     "years": [
       2022,

@@ -6,6 +6,7 @@ import { renderEstimationEmail, renderEstimationPdf } from '../email';
 import { env } from '../config/env';
 import { getPostalCodeStats } from '../config/market-stats';
 import { computeTransactionFees } from '../estimation/fees';
+import { findComparables } from '../estimation/comparables';
 
 /** Vérifie que l'Origin du navigateur fait partie des domaines de l'agence. */
 function originAllowed(tenant: TenantConfig, origin?: string): boolean {
@@ -48,9 +49,17 @@ export default async function estimateRoutes(app: FastifyInstance): Promise<void
     try {
       const mail = getMailProvider(tenant);
       // Enrichissement : positionnement marché (DVF) + estimation des frais
-      // pour donner au prospect un dossier exploitable plutôt qu'un simple chiffre.
+      // + 3 ventes comparables récentes, pour donner au prospect un vrai dossier.
       const marketStats = data.postalCode ? getPostalCodeStats(tenant.id, data.postalCode) : null;
       const fees = data.transaction === 'sale' ? computeTransactionFees(result.mid, data.condition) : null;
+      const comparables =
+        data.transaction === 'sale' && data.postalCode
+          ? findComparables(tenant.id, {
+              postalCode: data.postalCode,
+              propertyType: data.propertyType,
+              surface: data.surface,
+            })
+          : [];
       const emailData = {
         to: data.email,
         firstName: data.firstName,
@@ -71,6 +80,7 @@ export default async function estimateRoutes(app: FastifyInstance): Promise<void
         result,
         marketStats,
         fees,
+        comparables,
       };
       const tpl = renderEstimationEmail(emailData);
       const pdfBuffer = await renderEstimationPdf(emailData);

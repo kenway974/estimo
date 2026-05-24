@@ -44,6 +44,21 @@ type DvfRow = {
   type_local: string;
   surface_reelle_bati: string;
   nombre_pieces_principales: string;
+  date_mutation: string;
+};
+
+/** Une transaction anonymisée, prête pour l'index "comparables" du PDF. */
+type ComparableSale = {
+  /** "A" = Appartement, "M" = Maison (compact pour limiter la taille de l'index) */
+  t: 'A' | 'M';
+  /** Surface en m² */
+  s: number;
+  /** Prix de vente en € */
+  p: number;
+  /** Date (YYYY-MM, jour omis pour anonymisation) */
+  d: string;
+  /** Nombre de pièces (optionnel) */
+  r?: number;
 };
 
 /** Télécharge un fichier DVF si pas déjà présent localement. */
@@ -132,6 +147,10 @@ async function main(): Promise<void> {
 
   // Garder uniquement les mutations mono-lot (1 seule ligne appart/maison)
   const samplesByPostal = new Map<string, Sample[]>();
+  // En parallèle, on construit l'index "comparables" (transactions anonymisées
+  // par code postal, pour la section "Ventes récentes" du PDF). On garde toutes
+  // les ventes mono-lot triées par date desc, puis on tronquera à N par CP.
+  const comparablesByPostal = new Map<string, ComparableSale[]>();
   let cleanCount = 0;
   for (const { rows } of mutations.values()) {
     if (rows.length !== 1) continue; // ventes multi-lots écartées
@@ -146,6 +165,22 @@ async function main(): Promise<void> {
     const arr = samplesByPostal.get(cp) ?? [];
     arr.push({ pricePerM2: ppm2, type: r.type_local as 'Appartement' | 'Maison' });
     samplesByPostal.set(cp, arr);
+
+    // Ajout au pool des comparables (anonymisé, format compact)
+    const rooms = Number(r.nombre_pieces_principales);
+    const dateYM = (r.date_mutation || '').slice(0, 7); // YYYY-MM
+    if (dateYM) {
+      const cmp: ComparableSale = {
+        t: r.type_local === 'Maison' ? 'M' : 'A',
+        s: Math.round(surface),
+        p: Math.round(valeur),
+        d: dateYM,
+      };
+      if (Number.isFinite(rooms) && rooms > 0) cmp.r = rooms;
+      const list = comparablesByPostal.get(cp) ?? [];
+      list.push(cmp);
+      comparablesByPostal.set(cp, list);
+    }
   }
 
   console.log(
@@ -362,6 +397,37 @@ async function main(): Promise<void> {
   const marketStatsPath = path.join(REPO_ROOT, 'tenants', 'demo-idf.market-stats.json');
   writeFileSync(marketStatsPath, JSON.stringify(marketStats, null, 2) + '\n');
   console.log(`📊  Stats marché tenant : tenants/demo-idf.market-stats.json`);
+
+  // Index "comparables" pour la section "Ventes récentes" du PDF.
+  // Pour chaque code postal du top calibré, on garde les COMP_MAX_PER_CP
+  // transactions les plus récentes (suffisant pour trouver 3 matches sur
+  // surface ±20%). Format compact pour limiter la taille (~3-6 MB pour IDF).
+  const COMP_MAX_PER_CP = 200;
+  const topCpSet = new Set(topZones.map((z) => z.cp));
+  const comparablesIndex: Record<string, ComparableSale[]> = {};
+  let totalComps = 0;
+  for (const [cp, sales] of comparablesByPostal.entries()) {
+    if (!topCpSet.has(cp)) continue; // on ne garde que les CP du top calibré
+    sales.sort((a, b) => b.d.localeCompare(a.d)); // date desc (YYYY-MM)
+    const kept = sales.slice(0, COMP_MAX_PER_CP);
+    comparablesIndex[cp] = kept;
+    totalComps += kept.length;
+  }
+  const comparables = {
+    _meta: {
+      source: 'DVF Etalab — files.data.gouv.fr',
+      years: YEARS,
+      departments: DEPARTMENTS,
+      calibratedAt: new Date().toISOString(),
+      sampleSize: totalComps,
+      maxPerPostalCode: COMP_MAX_PER_CP,
+    },
+    byPostalCode: comparablesIndex,
+  };
+  const comparablesPath = path.join(REPO_ROOT, 'tenants', 'demo-idf.comparables.json');
+  writeFileSync(comparablesPath, JSON.stringify(comparables) + '\n'); // pas d'indent : économise ~50% de taille
+  const sizeKb = Math.round(JSON.stringify(comparables).length / 1024);
+  console.log(`🔍  Comparables index : tenants/demo-idf.comparables.json (${totalComps.toLocaleString('fr-FR')} ventes, ${sizeKb} KB)`);
 
   console.log(`\n🎉  Terminé.`);
 }

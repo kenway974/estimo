@@ -1,6 +1,7 @@
 import type { EstimationResult } from '../estimation/types';
 import type { TransactionFees } from '../estimation/fees';
 import type { MarketPostalCodeStats } from '../config/market-stats';
+import type { MatchedComparable } from '../estimation/comparables';
 
 export interface EstimationEmailData {
   to: string;
@@ -24,6 +25,8 @@ export interface EstimationEmailData {
   marketStats?: MarketPostalCodeStats | null;
   /** Frais transactionnels estimés (optionnel — section PDF "Frais à prévoir"). */
   fees?: TransactionFees | null;
+  /** Ventes récentes comparables (optionnel — section PDF "Ventes récentes dans le quartier"). */
+  comparables?: MatchedComparable[];
 }
 
 /** Une pièce jointe à un email (PDF, image, etc.). */
