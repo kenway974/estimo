@@ -10,6 +10,9 @@ export interface EstimatePayload {
   postalCode: string;
   city: string;
   features: string[];
+  dpeClass?: string;
+  floor?: string;
+  exposition?: string;
   firstName: string;
   lastName: string;
   email: string;

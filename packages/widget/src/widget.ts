@@ -1,6 +1,6 @@
 import { css } from './styles';
 import { postEstimate, postBooking, type EstimatePayload, type EstimateResponse } from './api';
-import { TRANSACTIONS, PROPERTY_TYPES, CONDITIONS, FEATURES } from './form-config';
+import { TRANSACTIONS, PROPERTY_TYPES, CONDITIONS, FEATURES, DPE_CLASSES, FLOOR_OPTIONS, EXPOSITION_OPTIONS } from './form-config';
 
 export interface WidgetOptions {
   tenantId: string;
@@ -48,8 +48,11 @@ export class EstimoWidget {
           <div class="field"><label for="e-rooms">Nombre de pièces</label><input id="e-rooms" name="rooms" type="number" min="0" inputmode="numeric" required></div>
           <div class="field"><label for="e-cp">Code postal</label><input id="e-cp" name="postalCode" required></div>
           <div class="field"><label for="e-city">Ville</label><input id="e-city" name="city" required></div>
+          <div class="field"><label for="e-dpe">DPE (énergie)</label><select id="e-dpe" name="dpeClass">${opt(DPE_CLASSES)}</select></div>
+          <div class="field"><label for="e-floor">Étage</label><select id="e-floor" name="floor">${opt(FLOOR_OPTIONS)}</select></div>
         </div>
         <div class="field"><label for="e-cond">État du bien</label><select id="e-cond" name="condition">${opt(CONDITIONS)}</select></div>
+        <div class="field"><label for="e-expo">Exposition principale</label><select id="e-expo" name="exposition">${opt(EXPOSITION_OPTIONS)}</select></div>
         <div class="field"><label>Équipements</label>
           <div class="chips" role="group" aria-label="Équipements">
             ${FEATURES.map((f) => `<span class="chip" role="button" tabindex="0" aria-pressed="false" data-feat="${f.value}">${f.label}</span>`).join('')}
@@ -255,6 +258,9 @@ export class EstimoWidget {
       postalCode: String(fd.get('postalCode')).trim(),
       city: String(fd.get('city')).trim(),
       features: [...this.features],
+      dpeClass: (fd.get('dpeClass') as string) || undefined,
+      floor: (fd.get('floor') as string) || undefined,
+      exposition: (fd.get('exposition') as string) || undefined,
       firstName: String(fd.get('firstName')).trim(),
       lastName: String(fd.get('lastName')).trim(),
       email: String(fd.get('email')).trim(),
