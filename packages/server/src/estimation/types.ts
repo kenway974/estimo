@@ -23,6 +23,12 @@ export const EstimationConfigSchema = z.object({
   rooms: z.object({ reference: z.number().int().default(3), perRoomPct: z.number().default(0) }).default({ reference: 3, perRoomPct: 0 }),
   // Demi-fourchette renvoyée autour de l'estimation centrale (0.07 = +/-7%).
   rangePct: z.number().min(0).max(0.5).default(0.07),
+  // Bonus/malus additif (%) par classe DPE. Ex: { "A": 0.06, "G": -0.12 }
+  dpe: z.record(z.string(), z.number()).optional(),
+  // Bonus/malus additif (%) par étage. Ex: { "rdc": -0.05, "dernier": 0.05 }
+  floors: z.record(z.string(), z.number()).optional(),
+  // Bonus/malus additif (%) par exposition. Ex: { "S": 0.03, "N": -0.02 }
+  exposition: z.record(z.string(), z.number()).optional(),
 });
 export type EstimationConfig = z.infer<typeof EstimationConfigSchema>;
 
@@ -35,6 +41,9 @@ export interface EstimationInput {
   postalCode: string;
   city: string;
   features: string[];
+  dpeClass?: string;
+  floor?: string;
+  exposition?: string;
 }
 
 export interface EstimationResult {

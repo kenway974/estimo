@@ -29,7 +29,10 @@ export class ConfigEstimator implements Estimator {
 
     const featureBonus = input.features.reduce((sum, f) => sum + (cfg.features[f] ?? 0), 0);
     const roomBonus = Math.max(0, input.rooms - cfg.rooms.reference) * cfg.rooms.perRoomPct;
-    const multiplier = 1 + featureBonus + roomBonus;
+    const dpeBonus = input.dpeClass ? (cfg.dpe?.[input.dpeClass] ?? 0) : 0;
+    const floorBonus = input.floor ? (cfg.floors?.[input.floor] ?? 0) : 0;
+    const expositionBonus = input.exposition ? (cfg.exposition?.[input.exposition] ?? 0) : 0;
+    const multiplier = 1 + featureBonus + roomBonus + dpeBonus + floorBonus + expositionBonus;
 
     const mid = pricePerM2 * input.surface * multiplier;
     return {
