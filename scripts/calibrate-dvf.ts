@@ -278,6 +278,12 @@ async function main(): Promise<void> {
     rooms: { reference: 3, perRoomPct: 0.02 },
     // Fourchette ±10 % (±8 % était trop étroite pour couvrir l'incertitude réelle)
     rangePct: 0.10,
+    // Bonus/malus DPE : F/G sanctionnés (interdictions de location 2025-2028).
+    dpe: { A: 0.06, B: 0.03, C: 0.0, D: 0.0, E: -0.03, F: -0.08, G: -0.12, nc: 0.0 },
+    // Bonus/malus étage : rdc pénalisé, dernier étage valorisé.
+    floors: { rdc: -0.05, '1_3': 0.0, '4_6': 0.02, '7_plus': 0.03, dernier: 0.05, na: 0.0 },
+    // Bonus/malus exposition : sud et sud-ouest valorisés, nord pénalisé.
+    exposition: { S: 0.03, SO: 0.04, SE: 0.03, O: 0.02, E: 0.0, N: -0.02, nc: 0.0 },
   };
 
   // Valeurs par défaut utilisées seulement si le tenant n'existe pas encore.
