@@ -14,6 +14,9 @@ export const EstimationConfigSchema = z.object({
   condition: z.record(z.string(), z.number().positive()),
   // Multiplicateur par zone : clé = code postal OU ville (minuscules). "default" = 1.
   zones: z.record(z.string(), z.number().positive()).default({ default: 1 }),
+  // Multiplicateurs de zone spécifiques aux loyers (dispersion plus compressée que la vente).
+  // Si absent, on retombe sur `zones`. Clé = code postal OU ville (minuscules).
+  rentZones: z.record(z.string(), z.number().positive()).optional(),
   // Bonus additif (en %) par équipement coché. Ex: { "parking": 0.03, "piscine": 0.07 }
   features: z.record(z.string(), z.number()).default({}),
   // Ajustement additif (%) selon le nombre de pièces au-delà de la référence.

@@ -21,8 +21,9 @@ export class ConfigEstimator implements Estimator {
 
     const typeMult = cfg.propertyType[input.propertyType] ?? 1;
     const condMult = cfg.condition[input.condition] ?? 1;
+    const zoneTable = (input.transaction === 'rent' && cfg.rentZones) ? cfg.rentZones : cfg.zones;
     const zoneMult =
-      cfg.zones[input.postalCode] ?? cfg.zones[input.city.toLowerCase()] ?? cfg.zones.default ?? 1;
+      zoneTable[input.postalCode] ?? zoneTable[input.city.toLowerCase()] ?? zoneTable.default ?? 1;
 
     const pricePerM2 = base * typeMult * condMult * zoneMult;
 

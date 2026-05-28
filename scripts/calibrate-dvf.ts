@@ -244,12 +244,23 @@ async function main(): Promise<void> {
   const zonesConfig: Record<string, number> = { default: 1.0 };
   for (const z of topZones) zonesConfig[z.cp] = z.mult;
 
+  // Zones loyer : dispersion compressée (≈45 % de la dispersion vente).
+  // Empiriquement, les écarts de loyers entre zones IDF sont ~40-50 % des écarts de prix.
+  const RENT_COMPRESS = 0.45;
+  const rentZonesConfig: Record<string, number> = { default: 1.0 };
+  for (const z of topZones) {
+    rentZonesConfig[z.cp] = +(1 + (z.mult - 1) * RENT_COMPRESS).toFixed(3);
+  }
+
+  // Base loyer IDF médian appartement (source : OLAP/Clameur ~22 €/m²).
+  const RENT_BASE_IDF = 22;
+
   const calibratedEstimation = {
     currency: 'EUR',
     basePricePerM2: {
       // basePrice = médiane appart IDF (arrondi à la dizaine la plus proche)
       sale: Math.round(medianAppartIdf / 10) * 10,
-      rent: 24, // loyer IDF approximatif ; non calibré (DVF = ventes uniquement)
+      rent: RENT_BASE_IDF,
     },
     propertyType: {
       appartement: 1.0,
@@ -260,9 +271,13 @@ async function main(): Promise<void> {
     // Coefficients d'état conservés (DVF n'expose pas l'état du bien)
     condition: { neuf: 1.15, bon: 1.0, a_rafraichir: 0.9, a_renover: 0.78 },
     zones: zonesConfig,
+    // Zones loyer séparées : évite d'amplifier indûment les écarts géographiques sur la location
+    rentZones: rentZonesConfig,
     features: { parking: 0.03, garage: 0.05, balcon: 0.02, terrasse: 0.04, jardin: 0.06, piscine: 0.08, ascenseur: 0.02, cave: 0.015 },
-    rooms: { reference: 3, perRoomPct: 0.0 },
-    rangePct: 0.08,
+    // 2 % par pièce au-delà de la référence (impact modeste mais réel sur la valeur)
+    rooms: { reference: 3, perRoomPct: 0.02 },
+    // Fourchette ±10 % (±8 % était trop étroite pour couvrir l'incertitude réelle)
+    rangePct: 0.10,
   };
 
   // Valeurs par défaut utilisées seulement si le tenant n'existe pas encore.
@@ -354,7 +369,7 @@ async function main(): Promise<void> {
     `## Limites`,
     `- L'état du bien (neuf/bon/à rafraîchir/à rénover) **n'est pas dans DVF** → multiplicateurs conservés tels quels.`,
     `- Les features (parking, balcon, etc.) ne sont pas dans DVF → conservés tels quels.`,
-    `- Les loyers (\`basePricePerM2.rent\`) ne sont pas calibrés (DVF = transactions de vente uniquement).`,
+    `- Les loyers (\`basePricePerM2.rent\`) sont une approximation (OLAP/Clameur). Les \`rentZones\` compressent les écarts de vente à ${RENT_COMPRESS * 100} % pour approcher les vraies dispersions de loyers.`,
     `- Les ventes multi-lots (appart + parking + cave par exemple) sont exclues pour ne pas biaiser le prix/m².`,
     `- Le coefficient maison/appart calculé sur IDF (${propertyTypeMaisonMult}) peut être plus faible que la valeur initiale (1.1) car en IDF les maisons sont souvent en périphérie moins chère.`,
     ``,
