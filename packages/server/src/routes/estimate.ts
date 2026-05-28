@@ -42,6 +42,9 @@ export default async function estimateRoutes(app: FastifyInstance): Promise<void
       postalCode: data.postalCode,
       city: data.city,
       features: data.features,
+      dpeClass: data.dpeClass,
+      floor: data.floor,
+      exposition: data.exposition,
     });
 
     // 1) Email d'estimation au prospect (avec PDF joint) — best effort.

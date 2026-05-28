@@ -17,6 +17,9 @@ export const EstimateRequestSchema = z.object({
   postalCode: z.string().min(2).max(10),
   city: z.string().min(1).max(120),
   features: z.array(z.string()).max(50).default([]),
+  dpeClass: z.enum(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'nc']).optional(),
+  floor: z.enum(['rdc', '1_3', '4_6', '7_plus', 'dernier', 'na']).optional(),
+  exposition: z.enum(['N', 'E', 'S', 'O', 'SO', 'SE', 'nc']).optional(),
 
   // --- Prospect ---
   firstName: z.string().min(1).max(80),
