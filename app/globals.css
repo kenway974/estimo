@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-white text-slate-800 antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    @apply bg-brand-orange text-white;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-brand-orange text-white font-semibold px-6 py-3 rounded-xl hover:bg-brand-orange-dark transition-colors;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 bg-brand-navy text-white font-semibold px-6 py-3 rounded-xl hover:bg-brand-navy-light transition-colors;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border-2 border-brand-navy text-brand-navy font-semibold px-6 py-3 rounded-xl hover:bg-brand-navy hover:text-white transition-colors;
+  }
+
+  .prose-custom {
+    @apply prose prose-slate max-w-none
+      prose-headings:text-brand-navy prose-headings:font-heading
+      prose-a:text-brand-orange prose-a:no-underline hover:prose-a:underline
+      prose-strong:text-brand-navy
+      prose-blockquote:border-brand-orange prose-blockquote:bg-orange-50 prose-blockquote:rounded-r-xl
+      prose-code:bg-slate-100 prose-code:text-brand-navy prose-code:rounded
+      prose-table:border-collapse;
+  }
+}
