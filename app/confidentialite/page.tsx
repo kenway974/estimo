@@ -12,7 +12,7 @@ export default function ConfidentialitePage() {
       <div className="container-site max-w-3xl">
         <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
           <h1 className="font-heading font-bold text-3xl text-brand-navy mb-2">Politique de confidentialité</h1>
-          <p className="text-slate-400 text-sm mb-8">Dernière mise à jour : {new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}</p>
+          <p className="text-slate-400 text-sm mb-8">Dernière mise à jour : mai 2026</p>
 
           {[
             {
@@ -25,7 +25,7 @@ export default function ConfidentialitePage() {
             },
             {
               title: '3. Finalités du traitement',
-              content: "Vos données sont utilisées pour : (1) vous fournir une estimation tarifaire indicative, (2) vous envoyer votre devis PDF par email, (3) vous rappeler ou vous contacter suite à votre demande, (4) améliorer nos services. Nous n'utilisons pas vos données à des fins de prospection commerciale sans votre consentement.",
+              content: 'Vos données sont utilisées pour : (1) vous fournir une estimation tarifaire indicative, (2) vous envoyer votre devis PDF par email, (3) vous rappeler ou vous contacter suite à votre demande, (4) améliorer nos services. Nous n\'utilisons pas vos données à des fins de prospection commerciale sans votre consentement.',
             },
             {
               title: '4. Durée de conservation',
@@ -33,15 +33,15 @@ export default function ConfidentialitePage() {
             },
             {
               title: '5. Partage des données',
-              content: "Nous ne vendons jamais vos données. Elles peuvent être transmises à nos prestataires techniques (hébergement, email) dans le strict cadre de l'exécution de nos services. En cas d'intégration CRM, vos données sont transmises uniquement pour la gestion de votre demande.",
+              content: 'Nous ne vendons jamais vos données. Elles peuvent être transmises à nos prestataires techniques (hébergement, email) dans le strict cadre de l\'exécution de nos services. En cas d\'intégration CRM, vos données sont transmises uniquement pour la gestion de votre demande.',
             },
             {
               title: '6. Cookies et traceurs',
-              content: "Ce site utilise des cookies analytics (Google Analytics) pour mesurer l'audience, uniquement avec votre consentement explicite. Vous pouvez refuser via la bannière de consentement. Des cookies techniques strictement nécessaires au fonctionnement du site ne sont pas soumis à consentement.",
+              content: 'Ce site utilise des cookies analytics (Google Analytics) pour mesurer l\'audience, uniquement avec votre consentement explicite. Vous pouvez refuser via la bannière de consentement. Des cookies techniques strictement nécessaires au fonctionnement du site ne sont pas soumis à consentement.',
             },
             {
               title: '7. Vos droits (RGPD)',
-              content: "Conformément au RGPD et à la loi Informatique et Libertés, vous disposez des droits d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition. Pour exercer ces droits, contactez-nous à jpclim.chauffagiste@gmail.com. Vous pouvez également adresser une réclamation à la CNIL (cnil.fr).",
+              content: 'Conformément au RGPD et à la loi Informatique et Libertés, vous disposez des droits d\'accès, de rectification, d\'effacement, de limitation, de portabilité et d\'opposition. Pour exercer ces droits, contactez-nous à jpclim.chauffagiste@gmail.com. Vous pouvez également adresser une réclamation à la CNIL (cnil.fr).',
             },
             {
               title: '8. Sécurité',

@@ -1,5 +1,4 @@
 'use client'
-import type { Metadata } from 'next'
 import { useState } from 'react'
 import { Phone, Mail, Instagram, Clock, MapPin, CheckCircle, Loader2, Send } from 'lucide-react'
 

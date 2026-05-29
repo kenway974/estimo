@@ -47,7 +47,6 @@ async function getRelated(currentSlug: string, category: string) {
   }
 }
 
-// Markdown très simplifié vers HTML
 function renderContent(content: string): string {
   return content
     .replace(/^### (.+)$/gm, '<h3 class="text-xl font-bold text-brand-navy mt-8 mb-3">$1</h3>')
@@ -111,7 +110,7 @@ export default async function BlogPostPage({ params }: Props) {
 
           {/* CTA intégré */}
           <div className="bg-brand-navy text-white rounded-2xl p-8 mb-8">
-            <h2 className="font-heading font-bold text-xl mb-3">Besoin d’un professionnel ?</h2>
+            <h2 className="font-heading font-bold text-xl mb-3">Besoin d'un professionnel ?</h2>
             <p className="text-slate-400 text-sm mb-5">JP Clim intervient en Île-de-France pour tous vos travaux de chauffage, climatisation et VMC.</p>
             <div className="flex flex-wrap gap-3">
               <Link href="/estimation" className="bg-brand-orange hover:bg-brand-orange-dark text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors inline-flex items-center gap-2">

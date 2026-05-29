@@ -21,7 +21,7 @@ function BookingContent() {
   const [error, setError] = useState<string | null>(null)
 
   const weekStart = startOfWeek(addDays(new Date(), currentWeek * 7 + 1), { weekStartsOn: 1 })
-  const weekDays = Array.from({ length: 6 }, (_, i) => addDays(weekStart, i)) // lun-sam
+  const weekDays = Array.from({ length: 6 }, (_, i) => addDays(weekStart, i))
 
   useEffect(() => {
     setLoadingSlots(true)

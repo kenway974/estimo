@@ -20,7 +20,6 @@ async function getPosts() {
 
 export default async function BlogPage() {
   const posts = await getPosts()
-
   const categories = [...new Set(posts.map((p) => p.category))]
 
   return (
@@ -33,7 +32,6 @@ export default async function BlogPage() {
       </div>
 
       <div className="container-site py-12">
-        {/* Filtres par catégorie */}
         {categories.length > 1 && (
           <div className="flex flex-wrap gap-2 mb-8">
             <span className="bg-brand-orange text-white px-4 py-1.5 rounded-full text-sm font-medium">Tous</span>
