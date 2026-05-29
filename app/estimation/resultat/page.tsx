@@ -46,7 +46,6 @@ function ResultatContent() {
       })
       if (!res.ok) throw new Error()
       setSent(true)
-      // Rediriger vers la confirmation après 3s
       setTimeout(() => router.push(`/estimation/confirmation?pid=${prospectId}&email=${encodeURIComponent(email)}`), 3000)
     } catch {
       setError('Erreur lors de l\'envoi. Veuillez réessayer.')
@@ -78,7 +77,7 @@ function ResultatContent() {
             <div className="text-4xl font-bold text-brand-navy mb-1">
               {formatCurrency(data.estimateMin)} – {formatCurrency(data.estimateMax)}
             </div>
-            <p className="text-xs text-slate-400">TTC, main d’œuvre + matériaux courants</p>
+            <p className="text-xs text-slate-400">TTC, main d'œuvre + matériaux courants</p>
           </div>
 
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
@@ -86,8 +85,8 @@ function ResultatContent() {
               <AlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
               <p className="text-sm text-amber-800">
                 <strong>Estimation indicative et non contractuelle.</strong> Le tarif réel peut différer
-                selon les particularités techniques du logement, l’accessibilité et les matériaux choisis.
-                Seule une visite sur site permet d’établir un devis définitif.
+                selon les particularités techniques du logement, l'accessibilité et les matériaux choisis.
+                Seule une visite sur site permet d'établir un devis définitif.
               </p>
             </div>
           </div>
@@ -116,7 +115,7 @@ function ResultatContent() {
               </div>
               <p className="text-slate-500 text-sm mb-5">
                 Recevez ce devis en PDF avec en bonus un <strong>guide pratique</strong> : entretien courant,
-                économies d’énergie, signaux d’alerte… des conseils concrets d’un pro.
+                économies d'énergie, signaux d'alerte… des conseils concrets d'un pro.
               </p>
               <form onSubmit={handleSendPDF} className="flex flex-col sm:flex-row gap-3">
                 <input

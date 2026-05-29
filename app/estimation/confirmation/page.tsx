@@ -27,7 +27,7 @@ export default async function ConfirmationPage({
           </h1>
           {email && (
             <p className="text-slate-500 mb-2">
-              Consultez votre boîte mail à l’adresse <strong>{email}</strong>.
+              Consultez votre boîte mail à l'adresse <strong>{email}</strong>.
             </p>
           )}
           <p className="text-slate-500 text-sm">
@@ -112,7 +112,7 @@ export default async function ConfirmationPage({
             {[1,2,3,4,5].map((i) => <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />)}
           </div>
           <p className="text-slate-600 text-sm italic">
-            &ldquo;Très réactif, travail soigné et prix honnête. Je recommande vivement JP Clim pour tout projet de chauffage en Île-de-France.&rdquo;
+            "Très réactif, travail soigné et prix honnête. Je recommande vivement JP Clim pour tout projet de chauffage en Île-de-France."
           </p>
           <p className="text-xs text-slate-400 mt-2">— Thomas B., Versailles</p>
         </div>
