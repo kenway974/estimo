@@ -9,7 +9,7 @@ async function main() {
   for (let dayOffset = 1; dayOffset <= 30; dayOffset++) {
     const date = addDays(new Date(), dayOffset)
     const dayOfWeek = date.getDay()
-    if (dayOfWeek === 0) continue // pas le dimanche
+    if (dayOfWeek === 0) continue
     for (const hour of [8, 10, 14, 16]) {
       slots.push({
         date: setMinutes(setHours(date, hour), 0),
@@ -39,35 +39,7 @@ async function main() {
         slug: 'entretien-chaudiere-obligatoire-loi',
         title: "Entretien chaudière : ce que dit la loi (et pourquoi c'est important)",
         excerpt: "L'entretien annuel de votre chaudière est une obligation légale. Découvrez ce que la réglementation impose, les risques en cas de non-respect et comment bien préparer l'intervention.",
-        content: `# Entretien chaudière : obligations légales et conseils pratiques
-
-## Qu'est-ce que la loi impose ?
-
-En France, l'entretien annuel de toute chaudière dont la puissance est comprise entre 4 et 400 kW est **obligatoire** (décret n°2009-649). Cette obligation concerne aussi bien les propriétaires que les locataires.
-
-## Qui est responsable : propriétaire ou locataire ?
-
-- **Locataire** : responsable de l'entretien courant et du ramonage
-- **Propriétaire** : responsable des réparations importantes et du bon état général
-
-## Ce que comprend un entretien complet
-
-1. Vérification de la combustion et du réglage du brûleur
-2. Nettoyage du brûleur, de l'échangeur et du corps de chauffe
-3. Contrôle de l'étanchéité du circuit gaz
-4. Vérification des dispositifs de sécurité
-5. Mesure du rendement et des émissions
-6. Remise de l'attestation d'entretien
-
-## Les risques en cas de non-entretien
-
-- **Sécurité** : risque d'intoxication au monoxyde de carbone (CO), risque d'explosion
-- **Financier** : surconsommation de gaz pouvant aller jusqu'à 15%, invalidation de garantie, refus d'assurance
-- **Légal** : amende en cas de sinistre lié au défaut d'entretien
-
-## Conseil JP Clim
-
-Planifiez votre entretien en début d'automne (septembre-octobre) pour être prêt avant l'hiver. Notre équipe intervient en Île-de-France avec un délai rapide et remet une attestation conforme.`,
+        content: `# Entretien chaudière : obligations légales et conseils pratiques\n\n## Qu'est-ce que la loi impose ?\n\nEn France, l'entretien annuel de toute chaudière dont la puissance est comprise entre 4 et 400 kW est **obligatoire** (décret n°2009-649). Cette obligation concerne aussi bien les propriétaires que les locataires.\n\n## Qui est responsable : propriétaire ou locataire ?\n\n- **Locataire** : responsable de l'entretien courant et du ramonage\n- **Propriétaire** : responsable des réparations importantes et du bon état général\n\n## Ce que comprend un entretien complet\n\n1. Vérification de la combustion et du réglage du brûleur\n2. Nettoyage du brûleur, de l'échangeur et du corps de chauffe\n3. Contrôle de l'étanchéité du circuit gaz\n4. Vérification des dispositifs de sécurité\n5. Mesure du rendement et des émissions\n6. Remise de l'attestation d'entretien\n\n## Les risques en cas de non-entretien\n\n- **Sécurité** : risque d'intoxication au monoxyde de carbone (CO), risque d'explosion\n- **Financier** : surconsommation de gaz pouvant aller jusqu'à 15%, invalidation de garantie, refus d'assurance\n- **Légal** : amende en cas de sinistre lié au défaut d'entretien\n\n## Conseil JP Clim\n\nPlanifiez votre entretien en début d'automne (septembre-octobre) pour être prêt avant l'hiver. Notre équipe intervient en Île-de-France avec un délai rapide et remet une attestation conforme.`,
         category: 'Entretien',
         tags: ['chaudière', 'entretien', 'obligation légale', 'gaz'],
         readingTime: 5,
@@ -78,50 +50,7 @@ Planifiez votre entretien en début d'automne (septembre-octobre) pour être pr�
         slug: 'pompe-a-chaleur-air-air-vs-air-eau',
         title: 'Pompe à chaleur : air/air ou air/eau ? Le guide complet',
         excerpt: "Vous hésitez entre une PAC air/air et air/eau ? Découvrez les différences, les avantages et inconvénients de chaque solution, et comment choisir en fonction de votre logement.",
-        content: `# Pompe à chaleur air/air vs air/eau : comment choisir ?
-
-## Fonctionnement général
-
-Une pompe à chaleur (PAC) capte les calories de l'air extérieur pour chauffer (ou refroidir) votre logement. Son COP (coefficient de performance) est généralement entre 3 et 5 : pour 1 kWh d'électricité consommé, elle produit 3 à 5 kWh de chaleur.
-
-## PAC air/air
-
-**Comment ça marche ?** La chaleur est diffusée directement dans l'air de vos pièces via des unités intérieures (splits).
-
-**Avantages :**
-- Réversible (climatisation en été)
-- Installation plus simple et moins coûteuse
-- Idéale pour les appartements et maisons bien isolées
-
-**Inconvénients :**
-- Ne chauffe pas l'eau sanitaire
-- Moins efficace en cas de froid extrême
-- Diffusion par air (moins homogène que le plancher chauffant)
-
-## PAC air/eau
-
-**Comment ça marche ?** La chaleur est transférée à un circuit d'eau, qui alimente radiateurs, plancher chauffant ET eau chaude sanitaire.
-
-**Avantages :**
-- Remplace complètement la chaudière
-- Compatible plancher chauffant (très efficace)
-- Chauffe aussi l'eau sanitaire
-- Éligible MaPrimeRénov' en remplacement d'une chaudière gaz
-
-**Inconvénients :**
-- Installation plus lourde et plus coûteuse
-- Nécessite un bon niveau d'isolation
-- Moins adaptée aux appartements
-
-## Notre recommandation
-
-| Profil | Solution recommandée |
-|--------|---------------------|
-| Appartement, complément de chauffage | PAC air/air |
-| Maison, remplacement chaudière | PAC air/eau |
-| Logement mal isolé | Isolation d'abord, PAC ensuite |
-
-JP Clim réalise un diagnostic gratuit sur site pour vous orienter vers la solution la plus adaptée à votre logement et votre budget.`,
+        content: `# Pompe à chaleur air/air vs air/eau : comment choisir ?\n\n## Fonctionnement général\n\nUne pompe à chaleur (PAC) capte les calories de l'air extérieur pour chauffer (ou refroidir) votre logement. Son COP (coefficient de performance) est généralement entre 3 et 5 : pour 1 kWh d'électricité consommé, elle produit 3 à 5 kWh de chaleur.\n\n## PAC air/air\n\n**Comment ça marche ?** La chaleur est diffusée directement dans l'air de vos pièces via des unités intérieures (splits).\n\n**Avantages :**\n- Réversible (climatisation en été)\n- Installation plus simple et moins coûteuse\n- Idéale pour les appartements et maisons bien isolées\n\n**Inconvénients :**\n- Ne chauffe pas l'eau sanitaire\n- Moins efficace en cas de froid extrême\n- Diffusion par air (moins homogène que le plancher chauffant)\n\n## PAC air/eau\n\n**Comment ça marche ?** La chaleur est transférée à un circuit d'eau, qui alimente radiateurs, plancher chauffant ET eau chaude sanitaire.\n\n**Avantages :**\n- Remplace complètement la chaudière\n- Compatible plancher chauffant (très efficace)\n- Chauffe aussi l'eau sanitaire\n- Éligible MaPrimeRénov' en remplacement d'une chaudière gaz\n\n**Inconvénients :**\n- Installation plus lourde et plus coûteuse\n- Nécessite un bon niveau d'isolation\n- Moins adaptée aux appartements\n\n## Notre recommandation\n\n| Profil | Solution recommandée |\n|--------|---------------------|\n| Appartement, complément de chauffage | PAC air/air |\n| Maison, remplacement chaudière | PAC air/eau |\n| Logement mal isolé | Isolation d'abord, PAC ensuite |\n\nJP Clim réalise un diagnostic gratuit sur site pour vous orienter vers la solution la plus adaptée à votre logement et votre budget.`,
         category: 'Installation',
         tags: ['pompe à chaleur', 'PAC', 'climatisation', 'chauffage'],
         readingTime: 7,
@@ -132,36 +61,7 @@ JP Clim réalise un diagnostic gratuit sur site pour vous orienter vers la solut
         slug: 'vmc-quel-modele-choisir',
         title: 'VMC : simple flux, double flux ou hygro ? Comment choisir pour votre logement',
         excerpt: "La VMC est obligatoire dans tout logement depuis 1982. Mais quel modèle choisir ? Simple flux, double flux, hygro B... on vous explique tout pour faire le bon choix.",
-        content: `# Choisir sa VMC : guide pratique
-
-## Pourquoi la VMC est-elle obligatoire ?
-
-Depuis 1982, toute construction neuve doit être équipée d'une VMC (Ventilation Mécanique Contrôlée). Elle assure le renouvellement de l'air, élimine l'humidité, les polluants et le CO2. Sans VMC, risques de condensation, moisissures et problèmes de santé.
-
-## VMC Simple Flux
-
-**Type A (autoréglable) :** débit constant, simple et économique. Convient aux logements bien isolés.
-**Type B (hygroréglable) :** débit variable selon l'humidité. Économie d'énergie jusqu'à 45% vs type A.
-
-**Coût :** 500 à 1 500 € pose comprise.
-
-## VMC Double Flux
-
-Récupère la chaleur de l'air extrait pour préchauffer l'air entrant. **Rendement thermique : 75 à 95%.**
-
-**Pour qui ?** Maisons BBC, passives ou très bien isolées. Amortissement sur 5-8 ans.
-
-**Coût :** 2 000 à 6 000 € selon la surface.
-
-## Notre conseil par profil
-
-- **Appartement standard** → VMC hygro B : le meilleur rapport qualité/prix
-- **Maison ancienne mal isolée** → VMC simple flux A : suffisant
-- **Maison neuve / rénovation globale** → VMC double flux : investissement rentable
-
-## Entretien VMC
-
-Nettoyage des bouches tous les 6 mois, remplacement des filtres (double flux) tous les 6 à 12 mois. JP Clim assure l'installation et l'entretien de tous types de VMC en Île-de-France.`,
+        content: `# Choisir sa VMC : guide pratique\n\n## Pourquoi la VMC est-elle obligatoire ?\n\nDepuis 1982, toute construction neuve doit être équipée d'une VMC (Ventilation Mécanique Contrôlée). Elle assure le renouvellement de l'air, élimine l'humidité, les polluants et le CO2. Sans VMC, risques de condensation, moisissures et problèmes de santé.\n\n## VMC Simple Flux\n\n**Type A (autoréglable) :** débit constant, simple et économique. Convient aux logements bien isolés.\n**Type B (hygroréglable) :** débit variable selon l'humidité. Économie d'énergie jusqu'à 45% vs type A.\n\n**Coût :** 500 à 1 500 € pose comprise.\n\n## VMC Double Flux\n\nRécupère la chaleur de l'air extrait pour préchauffer l'air entrant. **Rendement thermique : 75 à 95%.**\n\n**Pour qui ?** Maisons BBC, passives ou très bien isolées. Amortissement sur 5-8 ans.\n\n**Coût :** 2 000 à 6 000 € selon la surface.\n\n## Notre conseil par profil\n\n- **Appartement standard** → VMC hygro B : le meilleur rapport qualité/prix\n- **Maison ancienne mal isolée** → VMC simple flux A : suffisant\n- **Maison neuve / rénovation globale** → VMC double flux : investissement rentable\n\n## Entretien VMC\n\nNettoyage des bouches tous les 6 mois, remplacement des filtres (double flux) tous les 6 à 12 mois. JP Clim assure l'installation et l'entretien de tous types de VMC en Île-de-France.`,
         category: 'Ventilation',
         tags: ['VMC', 'ventilation', 'qualité air', 'logement'],
         readingTime: 6,
