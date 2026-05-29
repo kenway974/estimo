@@ -1,0 +1,168 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id              String        @id @default(uuid())
+  prospectId      String        @unique @default(uuid()) // ID partagé avec le CRM
+  firstName       String
+  email           String?
+  phone           String
+  city            String
+  serviceType     ServiceType
+  housingType     HousingType
+  surface         Int?
+  buildingAge     BuildingAge?
+  urgency         Urgency
+  specificities   String[]
+  estimateMin     Int
+  estimateMax     Int
+  status          LeadStatus    @default(ESTIMATE_VIEWED)
+  crmId           String?       // ID dans le CRM externe
+  source          String?       @default("website")
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  events          LeadEvent[]
+  booking         Booking?
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model LeadEvent {
+  id        String    @id @default(uuid())
+  leadId    String
+  lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  type      EventType
+  metadata  Json?
+  createdAt DateTime  @default(now())
+
+  @@index([leadId])
+}
+
+model Booking {
+  id          String        @id @default(uuid())
+  leadId      String        @unique
+  lead        Lead          @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  slotId      String
+  slot        AvailableSlot @relation(fields: [slotId], references: [id])
+  status      BookingStatus @default(PENDING)
+  notes       String?
+  confirmedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model AvailableSlot {
+  id         String    @id @default(uuid())
+  date       DateTime
+  duration   Int       @default(60) // minutes
+  available  Boolean   @default(true)
+  bookings   Booking[]
+  createdAt  DateTime  @default(now())
+
+  @@index([date])
+  @@index([available])
+}
+
+model Review {
+  id         String   @id @default(uuid())
+  source     ReviewSource @default(SITE)
+  authorName String
+  authorCity String?
+  rating     Int
+  content    String
+  service    String?
+  verified   Boolean  @default(false)
+  published  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([published])
+  @@index([source])
+}
+
+model BlogPost {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String
+  category    String
+  tags        String[]
+  imageUrl    String?
+  imageAlt    String?
+  readingTime Int      @default(5)
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([slug])
+  @@index([published])
+}
+
+enum ServiceType {
+  CHAUFFAGE
+  CLIMATISATION
+  VMC
+  PLOMBERIE
+  ELECTRICITE
+  ENTRETIEN
+  RENOVATION
+}
+
+enum HousingType {
+  APPARTEMENT
+  MAISON
+  LOCAL_COMMERCIAL
+}
+
+enum BuildingAge {
+  NEUF
+  MOINS_10_ANS
+  DIX_VINGT_ANS
+  PLUS_20_ANS
+}
+
+enum Urgency {
+  URGENT
+  PLANIFIE
+}
+
+enum LeadStatus {
+  ESTIMATE_VIEWED
+  QUOTE_SENT
+  CALLBACK_REQUESTED
+  APPOINTMENT_BOOKED
+  CONTACTED
+  CONVERTED
+  LOST
+}
+
+enum EventType {
+  ESTIMATE_VIEWED
+  QUOTE_EMAIL_SENT
+  QUOTE_EMAIL_OPENED
+  CALLBACK_REQUESTED
+  APPOINTMENT_BOOKED
+  CONTACT_FORM_SUBMITTED
+  PHONE_CLICKED
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum ReviewSource {
+  SITE
+  GOOGLE
+}
