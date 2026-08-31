@@ -36,13 +36,18 @@ export interface MailAttachment {
   contentType?: string;
 }
 
+/** Un message sortant. */
+export interface MailMessage {
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+  attachments?: MailAttachment[];
+  /** Reply-To de ce message. Prioritaire sur le replyTo configure du tenant. */
+  replyTo?: string;
+}
+
 /** Contrat d'un fournisseur d'envoi d'email transactionnel. */
 export interface MailProvider {
-  send(opts: {
-    to: string;
-    subject: string;
-    html: string;
-    text: string;
-    attachments?: MailAttachment[];
-  }): Promise<void>;
+  send(opts: MailMessage): Promise<void>;
 }
