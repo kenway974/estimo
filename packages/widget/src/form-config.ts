@@ -14,9 +14,12 @@ export const PROPERTY_TYPES: Option[] = [
   { value: 'local', label: 'Local / commerce' },
 ];
 
+// "Bon état" en tête : c'est la valeur par défaut du select, et donc celle
+// que retiennent tous les prospects qui ne touchent pas au champ. "Neuf"
+// portait un coefficient x1.15, ce qui gonflait leur estimation de 15 %.
 export const CONDITIONS: Option[] = [
-  { value: 'neuf', label: 'Neuf' },
   { value: 'bon', label: 'Bon état' },
+  { value: 'neuf', label: 'Neuf' },
   { value: 'a_rafraichir', label: 'À rafraîchir' },
   { value: 'a_renover', label: 'À rénover' },
 ];
