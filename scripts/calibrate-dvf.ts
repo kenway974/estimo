@@ -32,6 +32,8 @@ const MIN_PRICE_PER_M2 = 1000;
 const MAX_PRICE_PER_M2 = 30000;
 // Seuil de transactions pour qu'un code postal soit gardé (sinon trop bruité)
 const MIN_TX_PER_ZONE = 30;
+/** Ventes de maisons minimum dans un CP pour qu'il compte dans le ratio maison/appart. */
+const MIN_MAISON_PER_ZONE = 10;
 // On limite la sortie aux N codes postaux les mieux représentés
 const TOP_N_ZONES = 200;
 
@@ -198,14 +200,12 @@ async function main(): Promise<void> {
   }
   const medianAppartIdf = median([...allAppart]);
   const medianMaisonIdf = median([...allMaison]);
-  const propertyTypeMaisonMult = +(medianMaisonIdf / medianAppartIdf).toFixed(3);
 
   console.log(`\n🎯  Médiane IDF appartement : ${Math.round(medianAppartIdf)} €/m²`);
   console.log(`    Médiane IDF maison       : ${Math.round(medianMaisonIdf)} €/m²`);
-  console.log(`    → multiplicateur maison  : ${propertyTypeMaisonMult}`);
 
   // 4) Calibration par code postal (uniquement ceux avec assez de données)
-  type ZoneStat = { cp: string; count: number; medianAppart: number; medianMaison: number; mult: number; commune?: string };
+  type ZoneStat = { cp: string; count: number; maisonCount: number; medianAppart: number; medianMaison: number; mult: number; commune?: string };
   // On récupère un nom de commune représentatif par CP via la première mutation
   const communeByPostal = new Map<string, string>();
   for (const { rows } of mutations.values()) {
@@ -223,12 +223,14 @@ async function main(): Promise<void> {
     const maison = samples.filter((s) => s.type === 'Maison').map((s) => s.pricePerM2);
     const medA = median([...appart]);
     const medM = median([...maison]);
+    const maisonCount = maison.length;
     // Multiplicateur de zone = médiane appart locale / médiane appart IDF
     // (on prend l'appart comme référence, type le plus représenté)
     if (!isFinite(medA)) continue;
     zoneStats.push({
       cp,
       count: samples.length,
+      maisonCount,
       medianAppart: Math.round(medA),
       medianMaison: isFinite(medM) ? Math.round(medM) : 0,
       mult: +(medA / medianAppartIdf).toFixed(3),
@@ -239,6 +241,23 @@ async function main(): Promise<void> {
   const topZones = zoneStats.slice(0, TOP_N_ZONES);
 
   console.log(`\n🗺️   ${zoneStats.length} codes postaux ≥${MIN_TX_PER_ZONE} ventes — top ${topZones.length} conservés`);
+
+  // Multiplicateur maison : médiane des ratios maison/appart calculés CODE POSTAL
+  // PAR CODE POSTAL. Le ratio global IDF (médiane maison / médiane appart) est
+  // trompeur : c'est un paradoxe de Simpson. Paris concentre les appartements
+  // très chers et n'a presque pas de maisons, tandis que les maisons sont
+  // massivement en grande couronne, moins chère. Le ratio global donne ~0.66
+  // alors qu'à secteur constant une maison se vend PLUS cher au m² qu'un
+  // appartement (~1.25). Comparer à zone égale est la seule mesure honnête.
+  const maisonRatios = zoneStats
+    .filter((z) => z.medianMaison > 0 && z.maisonCount >= MIN_MAISON_PER_ZONE)
+    .map((z) => z.medianMaison / z.medianAppart);
+  const propertyTypeMaisonMult = maisonRatios.length
+    ? +median([...maisonRatios]).toFixed(3)
+    : 1.1;
+  console.log(
+    `    → multiplicateur maison  : ${propertyTypeMaisonMult} (médiane des ratios sur ${maisonRatios.length} CP)`,
+  );
 
   // 5) Construction de la config tenant calibrée
   const zonesConfig: Record<string, number> = { default: 1.0 };
@@ -377,7 +396,7 @@ async function main(): Promise<void> {
     `- Les features (parking, balcon, etc.) ne sont pas dans DVF → conservés tels quels.`,
     `- Les loyers (\`basePricePerM2.rent\`) sont une approximation (OLAP/Clameur). Les \`rentZones\` compressent les écarts de vente à ${RENT_COMPRESS * 100} % pour approcher les vraies dispersions de loyers.`,
     `- Les ventes multi-lots (appart + parking + cave par exemple) sont exclues pour ne pas biaiser le prix/m².`,
-    `- Le coefficient maison/appart calculé sur IDF (${propertyTypeMaisonMult}) peut être plus faible que la valeur initiale (1.1) car en IDF les maisons sont souvent en périphérie moins chère.`,
+    `- Le coefficient maison/appart (${propertyTypeMaisonMult}) est la **médiane des ratios par code postal**, pas le ratio des médianes IDF. À secteur constant une maison vaut plus au m² qu'un appartement ; le ratio global (${(medianMaisonIdf / medianAppartIdf).toFixed(2)}) est un artefact de répartition géographique (paradoxe de Simpson).`,
     ``,
   ];
   const reportPath = path.join(OUT_DIR, 'report.md');
