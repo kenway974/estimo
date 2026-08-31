@@ -20,7 +20,8 @@
     "start": "npm run start --workspace packages/server",
     "typecheck": "npm run typecheck --workspace packages/server && npm run typecheck --workspace packages/widget",
     "calibrate:dvf": "tsx scripts/calibrate-dvf.ts",
-    "preview:pdf": "tsx scripts/preview-pdf.ts"
+    "preview:pdf": "tsx scripts/preview-pdf.ts",
+    "test": "npm run test --workspace packages/server"
   },
   "devDependencies": {
     "csv-parse": "^6.2.1",
