@@ -3,21 +3,21 @@
 Solution clé en main, revendable à des agences immobilières : un **formulaire
 d'estimation embarquable** sur n'importe quel site + un **backend Node.js** qui
 calcule l'estimation, l'**envoie par email au prospect avec un PDF brandé en pièce jointe**,
-et **pousse le lead** dans l'outil de mailing/CRM de l'agence (Brevo, Mailchimp,
-SendGrid, Mailgun, SMTP).
+**notifie l'agence du nouveau lead**, et **pousse le contact** dans l'outil de
+mailing/CRM de l'agence (Brevo, Mailchimp, SendGrid, Mailgun, SMTP).
 
 - **Multi-agences** : un seul backend pour toutes les agences (1 fichier de config par agence, pas de base de données).
 - **Intégrable partout** : balise `<script>` (Shadow DOM, zéro conflit CSS/JS) ou `<iframe>`.
 - **Coefficients d'estimation 100 % configurables** sans toucher au code.
 - **Calibration automatique** des prix à partir des données publiques **DVF** (Demandes de Valeurs Foncières).
-- **PDF d'estimation brandé** joint au mail prospect (PDFKit, zéro asset externe).
+- **PDF d'estimation brandé** joint au mail prospect (rendu HTML/CSS via Chromium).
 - **Déploiement Railway** en un seul service.
 
 ## Stack
 - **Backend** : Node 20 + Fastify 5 + TypeScript, validation **Zod**, logs **pino**, `helmet` + CORS allowlist + rate-limit.
 - **Widget** : TypeScript vanilla, build **Vite** (bundle IIFE autonome), rendu en Shadow DOM.
 - **Email / CRM** : architecture *provider* (adaptateurs interchangeables).
-- **PDF** : PDFKit (généré côté serveur à chaque estimation).
+- **PDF** : Puppeteer-core + Chromium (gabarit HTML/CSS rendu côté serveur à chaque estimation). L'image Docker installe le Chromium d'Alpine ; en local, définir `PUPPETEER_EXECUTABLE_PATH` si Chromium n'est pas détecté.
 
 ## Structure
 ```
@@ -41,7 +41,7 @@ estimo/
 2. Le widget envoie les données à `POST /api/estimate`.
 3. Le backend identifie l'agence (`tenantId` + contrôle de l'`Origin`), valide, **calcule** l'estimation à partir des coefficients de l'agence.
 4. Il **génère un PDF brandé** et l'envoie **par email au prospect** (mail HTML + PDF en pièce jointe).
-5. Il **pousse le lead** dans le CRM/mailing de l'agence (Brevo, Mailchimp, etc.) avec les attributs prêts pour la segmentation.
+5. Il **notifie l'agence** par email (contact du prospect, bien, fourchette) et **pousse le lead** dans le CRM/mailing de l'agence (Brevo, Mailchimp, etc.) avec les attributs prêts pour la segmentation.
 6. Réponse JSON `{ estimate, emailSent }` → le widget affiche la fourchette.
 
 ## Démarrage local

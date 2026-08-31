@@ -33,9 +33,28 @@ le **nom de fichier doit valoir `<id>.json`**.
     "listId": 5,                                     // id numérique de la liste Brevo (optionnel)
     "doubleOptIn": false
   },
+  "agencyEmail": "leads@acme-immo.fr",               // reçoit les leads + demandes de RDV
   "estimation": { /* coefficients : voir §3 */ }
 }
 ```
+
+### Où arrivent les leads
+
+`agencyEmail` est l'adresse qui reçoit **les deux notifications automatiques** :
+
+| Quand | Contenu |
+|---|---|
+| À chaque estimation | Contact du prospect, bien, fourchette envoyée. `Reply-To` = email du prospect. |
+| À chaque demande de RDV | Type de RDV, jour et créneau souhaités, rappel du bien. |
+
+Si `agencyEmail` est absent, les notifications partent sur `mail.fromEmail`.
+C'est un repli, pas un réglage : renseigner `agencyEmail` explicitement, sinon
+l'agence reçoit ses leads sur l'adresse d'expédition, qui est souvent une
+boîte non relevée (`noreply@`, `estimation@`).
+
+Le push CRM reste indépendant : il n'a lieu que si `crm.provider ≠ none`.
+Le mail de lead, lui, part toujours — c'est le filet qui garantit qu'aucun
+lead ne se perd si l'agence n'a pas de CRM branché.
 
 ## 2. Renseigner les secrets (variables d'env)
 
@@ -105,8 +124,10 @@ curl -X POST http://localhost:8080/api/estimate -H "content-type: application/js
 }'
 ```
 
-Réponse attendue : `{ "estimate": { ... }, "emailSent": true }`. Vérifier ensuite
-la boîte mail destinataire (mail + PDF joint) et le contact créé dans le CRM.
+Réponse attendue : `{ "estimate": { ... }, "emailSent": true }`. Vérifier ensuite :
+- la boîte du **prospect** : mail d'estimation + PDF joint ;
+- la boîte **`agencyEmail`** : mail « Nouveau lead » ;
+- le contact créé dans le **CRM** (si `crm.provider ≠ none`).
 
 ## 5. Redéployer
 
