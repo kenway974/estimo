@@ -87,13 +87,25 @@ export default async function estimateRoutes(app: FastifyInstance): Promise<void
         comparables,
       };
       const tpl = renderEstimationEmail(emailData);
-      const pdfBuffer = await renderEstimationPdf(emailData);
+
+      // Le PDF a son propre try : Chromium peut echouer (memoire, binaire
+      // absent) et ce n'est pas une raison pour priver le prospect de son
+      // estimation. Le mail part alors sans piece jointe — degrade, pas perdu.
+      let pdfBuffer: Buffer | null = null;
+      try {
+        pdfBuffer = await renderEstimationPdf(emailData);
+      } catch (err) {
+        req.log.error({ err, tenant: tenant.id }, 'echec generation PDF - envoi du mail sans piece jointe');
+      }
+
       await mail.send({
         to: data.email,
         subject: tpl.subject,
         html: tpl.html,
         text: tpl.text,
-        attachments: [{ filename: 'estimation.pdf', content: pdfBuffer, contentType: 'application/pdf' }],
+        ...(pdfBuffer
+          ? { attachments: [{ filename: 'estimation.pdf', content: pdfBuffer, contentType: 'application/pdf' }] }
+          : {}),
       });
       emailSent = true;
     } catch (err) {
