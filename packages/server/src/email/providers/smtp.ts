@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import type { MailProvider, MailAttachment } from '../types';
+import type { MailProvider, MailMessage } from '../types';
 
 /** Envoi via SMTP classique (compatible n'importe quel serveur mail). */
 export class SmtpProvider implements MailProvider {
@@ -8,10 +8,11 @@ export class SmtpProvider implements MailProvider {
     // smtpUrl ex : smtps://user:pass@smtp.exemple.com:465
     this.transport = nodemailer.createTransport(smtpUrl);
   }
-  async send(o: { to: string; subject: string; html: string; text: string; attachments?: MailAttachment[] }): Promise<void> {
+  async send(o: MailMessage): Promise<void> {
     await this.transport.sendMail({
       from: this.from,
       to: o.to,
+      replyTo: o.replyTo,
       subject: o.subject,
       html: o.html,
       text: o.text,

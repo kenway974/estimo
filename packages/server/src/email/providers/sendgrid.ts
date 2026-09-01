@@ -1,22 +1,17 @@
-import type { MailProvider, MailAttachment } from '../types';
+import type { MailProvider, MailMessage } from '../types';
 
 /** Envoi via l'API SendGrid v3. */
 export class SendgridProvider implements MailProvider {
   constructor(private apiKey: string, private fromEmail: string, private fromName: string, private replyTo?: string) {}
-  async send(o: {
-    to: string;
-    subject: string;
-    html: string;
-    text: string;
-    attachments?: MailAttachment[];
-  }): Promise<void> {
+  async send(o: MailMessage): Promise<void> {
+    const replyTo = o.replyTo ?? this.replyTo;
     const res = await fetch('https://api.sendgrid.com/v3/mail/send', {
       method: 'POST',
       headers: { authorization: `Bearer ${this.apiKey}`, 'content-type': 'application/json' },
       body: JSON.stringify({
         personalizations: [{ to: [{ email: o.to }] }],
         from: { email: this.fromEmail, name: this.fromName },
-        reply_to: this.replyTo ? { email: this.replyTo } : undefined,
+        reply_to: replyTo ? { email: replyTo } : undefined,
         subject: o.subject,
         content: [
           { type: 'text/plain', value: o.text },

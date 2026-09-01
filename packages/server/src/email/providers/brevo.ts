@@ -1,22 +1,17 @@
-import type { MailProvider, MailAttachment } from '../types';
+import type { MailProvider, MailMessage } from '../types';
 
 /** Envoi via l'API transactionnelle Brevo (ex-Sendinblue). */
 export class BrevoMailProvider implements MailProvider {
   constructor(private apiKey: string, private fromEmail: string, private fromName: string, private replyTo?: string) {}
-  async send(o: {
-    to: string;
-    subject: string;
-    html: string;
-    text: string;
-    attachments?: MailAttachment[];
-  }): Promise<void> {
+  async send(o: MailMessage): Promise<void> {
+    const replyTo = o.replyTo ?? this.replyTo;
     const res = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: { 'api-key': this.apiKey, 'content-type': 'application/json', accept: 'application/json' },
       body: JSON.stringify({
         sender: { email: this.fromEmail, name: this.fromName },
         to: [{ email: o.to }],
-        replyTo: this.replyTo ? { email: this.replyTo } : undefined,
+        replyTo: replyTo ? { email: replyTo } : undefined,
         subject: o.subject,
         htmlContent: o.html,
         textContent: o.text,

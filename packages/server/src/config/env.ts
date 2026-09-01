@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import path from 'node:path';
+import { repoRoot } from './paths';
 
 /**
  * Validation des variables d'environnement au démarrage.
@@ -12,7 +13,7 @@ const EnvSchema = z.object({
   PORT: z.coerce.number().int().positive().default(8080),
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']).default('info'),
   // Dossier contenant les fichiers de configuration des agences (1 .json par agence).
-  TENANTS_DIR: z.string().default(path.resolve(process.cwd(), 'tenants')),
+  TENANTS_DIR: z.string().default(path.join(repoRoot(), 'tenants')),
   // Limite de requêtes par IP et par minute sur l'API publique.
   RATE_LIMIT_MAX: z.coerce.number().int().positive().default(30),
 });

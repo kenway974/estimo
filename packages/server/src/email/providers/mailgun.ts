@@ -1,15 +1,9 @@
-import type { MailProvider, MailAttachment } from '../types';
+import type { MailProvider, MailMessage } from '../types';
 
 /** Envoi via l'API Mailgun (domaine + clé requis). */
 export class MailgunProvider implements MailProvider {
   constructor(private apiKey: string, private domain: string, private from: string, private replyTo?: string) {}
-  async send(o: {
-    to: string;
-    subject: string;
-    html: string;
-    text: string;
-    attachments?: MailAttachment[];
-  }): Promise<void> {
+  async send(o: MailMessage): Promise<void> {
     const auth = Buffer.from(`api:${this.apiKey}`).toString('base64');
     // Mailgun supporte aussi le multipart/form-data, requis dès qu'il y a des
     // pièces jointes. On utilise FormData (natif Node 20+) pour gérer les deux cas.
@@ -19,7 +13,8 @@ export class MailgunProvider implements MailProvider {
     form.set('subject', o.subject);
     form.set('text', o.text);
     form.set('html', o.html);
-    if (this.replyTo) form.set('h:Reply-To', this.replyTo);
+    const replyTo = o.replyTo ?? this.replyTo;
+    if (replyTo) form.set('h:Reply-To', replyTo);
     for (const a of o.attachments ?? []) {
       form.append(
         'attachment',

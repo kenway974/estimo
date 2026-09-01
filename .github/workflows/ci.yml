@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # Le widget se compile avant le serveur : le build serveur ne depend pas
+      # de son bundle, mais l'ordre reproduit celui du Dockerfile.
+      - run: npm run build
+
+      - run: npm run typecheck
+
+      - run: npm test

@@ -4,6 +4,7 @@ import path from 'node:path';
 import fastifyStatic from '@fastify/static';
 import { env } from './config/env';
 import { loadTenants } from './config/tenants';
+import { repoRoot } from './config/paths';
 import security from './plugins/security';
 import corsPlugin from './plugins/cors';
 import healthRoutes from './routes/health';
@@ -30,7 +31,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(bookingRoutes);
 
   // Sert le widget compilé : https://<backend>/widget.js + page de démo.
-  const widgetDist = process.env.WIDGET_DIST ?? path.resolve(process.cwd(), 'packages/widget/dist');
+  const widgetDist = process.env.WIDGET_DIST ?? path.join(repoRoot(), 'packages/widget/dist');
   if (fs.existsSync(widgetDist)) {
     await app.register(fastifyStatic, { root: widgetDist, prefix: '/' });
     app.log.info({ widgetDist }, 'widget statique servi');

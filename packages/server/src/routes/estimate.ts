@@ -3,6 +3,7 @@ import { EstimateRequestSchema } from '../schemas/estimate';
 import { getTenant, type TenantConfig } from '../config/tenants';
 import { getEstimator, getMailProvider, getCrmProvider } from '../lib/services';
 import { renderEstimationEmail, renderEstimationPdf } from '../email';
+import { renderLeadAgencyEmail } from '../email/templates/lead-agency';
 import { env } from '../config/env';
 import { getPostalCodeStats } from '../config/market-stats';
 import { computeTransactionFees } from '../estimation/fees';
@@ -86,20 +87,67 @@ export default async function estimateRoutes(app: FastifyInstance): Promise<void
         comparables,
       };
       const tpl = renderEstimationEmail(emailData);
-      const pdfBuffer = await renderEstimationPdf(emailData);
+
+      // Le PDF a son propre try : Chromium peut echouer (memoire, binaire
+      // absent) et ce n'est pas une raison pour priver le prospect de son
+      // estimation. Le mail part alors sans piece jointe — degrade, pas perdu.
+      let pdfBuffer: Buffer | null = null;
+      try {
+        pdfBuffer = await renderEstimationPdf(emailData);
+      } catch (err) {
+        req.log.error({ err, tenant: tenant.id }, 'echec generation PDF - envoi du mail sans piece jointe');
+      }
+
       await mail.send({
         to: data.email,
         subject: tpl.subject,
         html: tpl.html,
         text: tpl.text,
-        attachments: [{ filename: 'estimation.pdf', content: pdfBuffer, contentType: 'application/pdf' }],
+        ...(pdfBuffer
+          ? { attachments: [{ filename: 'estimation.pdf', content: pdfBuffer, contentType: 'application/pdf' }] }
+          : {}),
       });
       emailSent = true;
     } catch (err) {
       req.log.error({ err, tenant: tenant.id }, 'echec envoi email estimation');
     }
 
-    // 2) Push du lead vers le mailing de l'agence — best effort.
+    // 2) Notification du lead a l'agence — best effort.
+    //    Indispensable : sans ce mail, une agence avec crm.provider "none"
+    //    ne recoit jamais le lead (seul le prospect etait notifie).
+    try {
+      const recipient = tenant.agencyEmail ?? tenant.mail.fromEmail;
+      const tpl = renderLeadAgencyEmail({
+        agencyName: tenant.branding.displayName,
+        primaryColor: tenant.branding.primaryColor,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phone,
+        property: {
+          transaction: data.transaction,
+          propertyType: data.propertyType,
+          surface: data.surface,
+          rooms: data.rooms,
+          condition: data.condition,
+          postalCode: data.postalCode,
+          city: data.city,
+          features: data.features,
+        },
+        result,
+      });
+      await getMailProvider(tenant).send({
+        to: recipient,
+        subject: tpl.subject,
+        html: tpl.html,
+        text: tpl.text,
+        replyTo: data.email,
+      });
+    } catch (err) {
+      req.log.error({ err, tenant: tenant.id }, 'echec notification lead agence');
+    }
+
+    // 3) Push du lead vers le mailing de l'agence — best effort.
     try {
       await getCrmProvider(tenant).upsertContact({
         email: data.email,

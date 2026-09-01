@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2314213d'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' fill='%23b8934a' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+  <title>Rivière & Associés — Estimation gratuite de votre bien</title>
+  <style>
+    :root {
+      --or: #b8934a;
+      --encre: #14213d;
+      --ardoise: #4a5568;
+      --creme: #faf8f4;
+      --trait: #e4ded3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      color: var(--encre);
+      background: #fff;
+      line-height: 1.6;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+    /* En-tête */
+    header { border-bottom: 1px solid var(--trait); background: #fff; }
+    .bar { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; gap: 24px; }
+    .marque { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: inherit; }
+    .marque strong { font-size: 21px; letter-spacing: .04em; font-weight: 600; }
+    .marque span { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--or); }
+    nav ul { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+    nav a { color: var(--ardoise); text-decoration: none; font-size: 14px; }
+    nav a:hover, nav a.actif { color: var(--or); }
+    .tel { font-size: 14px; font-weight: 600; white-space: nowrap; }
+    @media (max-width: 860px) { nav, .tel { display: none; } }
+
+    /* Bandeau */
+    .hero { background: var(--encre); color: #fff; padding: 64px 0 72px; }
+    .hero p.sur { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--or); margin: 0 0 14px; }
+    .hero h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.15; margin: 0 0 18px; font-weight: 500; }
+    .hero h1 em { font-style: italic; color: var(--or); }
+    .hero p.chapo { font-size: 17px; color: #c8cfdd; max-width: 620px; margin: 0; }
+    .preuves { display: flex; flex-wrap: wrap; gap: 40px; margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,.14); }
+    .preuve b { display: block; font-size: 27px; color: var(--or); font-weight: 600; }
+    .preuve span { font-size: 12px; color: #9fa9bd; letter-spacing: .08em; text-transform: uppercase; }
+
+    /* Section estimation */
+    .estim { padding: 68px 0; background: var(--creme); }
+    .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    @media (max-width: 900px) { .duo { grid-template-columns: 1fr; gap: 36px; } }
+    .duo h2 { font-size: 30px; font-weight: 500; margin: 0 0 16px; line-height: 1.2; }
+    .duo h2 em { font-style: italic; color: var(--or); }
+    .duo > div > p { color: var(--ardoise); margin: 0 0 26px; }
+    .liste { list-style: none; margin: 0; padding: 0; }
+    .liste li { padding: 13px 0 13px 30px; border-bottom: 1px solid var(--trait); position: relative; font-size: 15px; }
+    .liste li:last-child { border-bottom: 0; }
+    .liste li::before {
+      content: ""; position: absolute; left: 4px; top: 20px;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--or);
+    }
+    .liste b { font-weight: 600; }
+    .encart {
+      margin-top: 26px; padding: 16px 18px; background: #fff;
+      border-left: 3px solid var(--or); font-size: 14px; color: var(--ardoise);
+    }
+    /* Conteneur du widget : la carte blanche est fournie par l'agence, pas par Estimo */
+    .boite { background: #fff; border: 1px solid var(--trait); padding: 26px; }
+
+    footer { background: var(--encre); color: #8e99ad; padding: 32px 0; font-size: 13px; }
+    .pied { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+    footer a { color: #8e99ad; }
+
+    .bandeau {
+      background: #2d2416; color: #e8dcc4; text-align: center;
+      font-size: 12px; letter-spacing: .06em; padding: 8px 16px;
+    }
+    .bandeau b { color: #d9b978; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <div class="bandeau"><b>Démonstration Estimo</b> — « Rivière &amp; Associés » est une agence fictive. Seul le module d'estimation est réel.</div>
+
+  <header>
+    <div class="wrap bar">
+      <a class="marque" href="#"><strong>Rivière &amp; Associés</strong><span>Immobilier</span></a>
+      <nav>
+        <ul>
+          <li><a href="#">Acheter</a></li>
+          <li><a href="#">Louer</a></li>
+          <li><a href="#">Vendre</a></li>
+          <li><a class="actif" href="#estimation">Estimation</a></li>
+          <li><a href="#">L'agence</a></li>
+        </ul>
+      </nav>
+      <span class="tel">01 45 00 00 00</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="sur">Estimation en ligne</p>
+      <h1>Combien vaut<br><em>votre bien</em> aujourd'hui ?</h1>
+      <p class="chapo">
+        Une estimation argumentée en deux minutes, fondée sur les ventes réellement
+        conclues autour de chez vous. Sans engagement, et sans visite préalable.
+      </p>
+      <div class="preuves">
+        <div class="preuve"><b>377 000</b><span>ventes analysées</span></div>
+        <div class="preuve"><b>2 min</b><span>pour recevoir le dossier</span></div>
+        <div class="preuve"><b>Gratuit</b><span>et sans engagement</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="estim" id="estimation">
+    <div class="wrap duo">
+      <div>
+        <h2>Votre dossier d'estimation, <em>par email</em></h2>
+        <p>
+          Renseignez votre bien : vous recevez immédiatement un dossier PDF complet,
+          et l'un de nos négociateurs vous rappelle sous 24 h si vous le souhaitez.
+        </p>
+        <ul class="liste">
+          <li><b>Une fourchette de prix</b> calculée sur les transactions récentes de votre quartier.</li>
+          <li><b>Les repères du marché local</b> : prix médian au m² de votre code postal.</li>
+          <li><b>Trois ventes comparables</b> au vôtre, conclues ces derniers mois.</li>
+          <li><b>Les frais à prévoir</b> si vous vendez : diagnostics, notaire, plus-value.</li>
+        </ul>
+        <div class="encart">
+          Source des données : base DVF (Demandes de Valeurs Foncières) publiée par
+          la Direction générale des finances publiques via data.gouv.fr.
+        </div>
+      </div>
+
+      <div class="boite">
+        <!-- ▼▼ Intégration Estimo : ces deux lignes, rien de plus ▼▼ -->
+        <div id="estimo-widget"></div>
+        <script
+          src="/widget.js"
+          data-estimo
+          data-tenant="demo-idf"
+          data-primary="#b8934a"
+          data-target="#estimo-widget"
+          defer></script>
+        <!-- ▲▲ Fin de l'intégration Estimo ▲▲ -->
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap pied">
+      <span>© 2026 Rivière &amp; Associés — Paris 11<sup>e</sup></span>
+      <span><a href="#">Mentions légales</a> · <a href="#">Confidentialité</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>
