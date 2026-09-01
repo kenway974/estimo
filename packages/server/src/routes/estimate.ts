@@ -4,6 +4,7 @@ import { getTenant, type TenantConfig } from '../config/tenants';
 import { getEstimator, getMailProvider, getCrmProvider } from '../lib/services';
 import { renderEstimationEmail, renderEstimationPdf } from '../email';
 import { renderLeadAgencyEmail } from '../email/templates/lead-agency';
+import { sendMail } from '../email/send';
 import { env } from '../config/env';
 import { getPostalCodeStats } from '../config/market-stats';
 import { computeTransactionFees } from '../estimation/fees';
@@ -98,16 +99,20 @@ export default async function estimateRoutes(app: FastifyInstance): Promise<void
         req.log.error({ err, tenant: tenant.id }, 'echec generation PDF - envoi du mail sans piece jointe');
       }
 
-      await mail.send({
-        to: data.email,
-        subject: tpl.subject,
-        html: tpl.html,
-        text: tpl.text,
-        ...(pdfBuffer
-          ? { attachments: [{ filename: 'estimation.pdf', content: pdfBuffer, contentType: 'application/pdf' }] }
-          : {}),
-      });
-      emailSent = true;
+      emailSent = await sendMail(
+        mail,
+        {
+          to: data.email,
+          subject: tpl.subject,
+          html: tpl.html,
+          text: tpl.text,
+          ...(pdfBuffer
+            ? { attachments: [{ filename: 'estimation.pdf', content: pdfBuffer, contentType: 'application/pdf' }] }
+            : {}),
+        },
+        req.log,
+        { tenant: tenant.id, type: 'estimation prospect' },
+      );
     } catch (err) {
       req.log.error({ err, tenant: tenant.id }, 'echec envoi email estimation');
     }
@@ -136,13 +141,12 @@ export default async function estimateRoutes(app: FastifyInstance): Promise<void
         },
         result,
       });
-      await getMailProvider(tenant).send({
-        to: recipient,
-        subject: tpl.subject,
-        html: tpl.html,
-        text: tpl.text,
-        replyTo: data.email,
-      });
+      await sendMail(
+        getMailProvider(tenant),
+        { to: recipient, subject: tpl.subject, html: tpl.html, text: tpl.text, replyTo: data.email },
+        req.log,
+        { tenant: tenant.id, type: 'lead agence' },
+      );
     } catch (err) {
       req.log.error({ err, tenant: tenant.id }, 'echec notification lead agence');
     }

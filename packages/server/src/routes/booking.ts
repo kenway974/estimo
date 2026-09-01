@@ -3,6 +3,7 @@ import { BookingRequestSchema, type BookingRequest } from '../schemas/booking';
 import { getTenant, type TenantConfig } from '../config/tenants';
 import { getMailProvider, getCrmProvider } from '../lib/services';
 import { renderBookingAgencyEmail } from '../email/templates/booking-agency';
+import { sendMail } from '../email/send';
 import { env } from '../config/env';
 
 /** Vérifie que l'Origin du navigateur fait partie des domaines de l'agence. */
@@ -57,12 +58,12 @@ export default async function bookingRoutes(app: FastifyInstance): Promise<void>
     const recipient = tenant.agencyEmail ?? tenant.mail.fromEmail;
     try {
       const tpl = renderBookingAgencyEmail(tenant.branding.displayName, tenant.branding.primaryColor, data);
-      await getMailProvider(tenant).send({
-        to: recipient,
-        subject: tpl.subject,
-        html: tpl.html,
-        text: tpl.text,
-      });
+      await sendMail(
+        getMailProvider(tenant),
+        { to: recipient, subject: tpl.subject, html: tpl.html, text: tpl.text },
+        req.log,
+        { tenant: tenant.id, type: 'demande RDV' },
+      );
     } catch (err) {
       req.log.error({ err, tenant: tenant.id }, 'echec envoi mail demande RDV agence');
     }

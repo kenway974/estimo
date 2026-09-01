@@ -15,6 +15,30 @@ const money = (n: number, c: string) =>
   new Intl.NumberFormat('fr-FR', { style: 'currency', currency: c, maximumFractionDigits: 0 }).format(n);
 
 /** Widget d'estimation : formulaire en plusieurs étapes rendu dans un Shadow DOM. */
+
+/**
+ * Traduit l'erreur remontee par l'API en message affichable.
+ * Les codes viennent du backend (`{ error: "..." }`) ; tout le reste est
+ * traite comme un incident reseau.
+ */
+function messageErreur(err: unknown): string {
+  const code = err instanceof Error ? err.message : '';
+  switch (code) {
+    case 'origine_non_autorisee':
+      return "Ce site n'est pas autorisé à utiliser ce module. Contactez l'agence.";
+    case 'tenant_introuvable':
+      return "Module mal configuré : agence inconnue. Contactez l'agence.";
+    case 'cle_invalide':
+      return "Module mal configuré : clé invalide. Contactez l'agence.";
+    case 'validation':
+      return 'Certaines informations saisies sont invalides. Merci de les vérifier.';
+    default:
+      if (/^HTTP 429$/.test(code)) return 'Trop de demandes en peu de temps. Réessayez dans une minute.';
+      if (/^HTTP 5\d\d$/.test(code)) return 'Le service est momentanément indisponible. Réessayez dans un instant.';
+      return 'Une erreur est survenue. Merci de réessayer dans un instant.';
+  }
+}
+
 export class EstimoWidget {
   private root: ShadowRoot;
   private features = new Set<string>();
@@ -59,6 +83,7 @@ export class EstimoWidget {
           </div>
         </div>
         <div class="actions"><span></span><button type="button" class="primary" data-next>Continuer</button></div>
+        <p class="err" data-err="1" hidden></p>
       </section>
 
       <section data-step="2" hidden>
@@ -82,7 +107,7 @@ export class EstimoWidget {
         <label class="consent"><input type="checkbox" name="consent" required>
           J'accepte d'être recontacté(e) et que mes données soient traitées pour cette estimation.</label>
         <div class="actions"><button type="button" class="ghost" data-back>Retour</button><button type="submit" class="primary">Obtenir mon estimation</button></div>
-        <p class="err" hidden></p>
+        <p class="err" data-err="2" hidden></p>
       </section>
 
       <section data-step="result" hidden>
@@ -187,7 +212,7 @@ export class EstimoWidget {
     // ── Nav step 1 → 2 → result ──
     wrap.querySelector('[data-next]')?.addEventListener('click', () => {
       const s1 = wrap.querySelector('[data-step="1"]') as HTMLElement;
-      if (!this.validStep(s1)) return;
+      if (!this.validStep(s1, wrap.querySelector('[data-err="1"]'))) return;
       show('2');
     });
     wrap.querySelector('[data-back]')?.addEventListener('click', () => show('1'));
@@ -235,17 +260,43 @@ export class EstimoWidget {
     bindSlotGroup('[data-time-group] .slot-card');
   }
 
-  private validStep(section: HTMLElement): boolean {
+  /**
+   * Valide une etape et AFFICHE la raison du blocage.
+   *
+   * reportValidity() seul ne suffit pas ici : la bulle native du navigateur ne
+   * s'affiche pas dans un Shadow DOM. L'utilisateur cliquait, la fonction
+   * sortait en silence, et il ne se passait rien du tout a l'ecran.
+   */
+  private validStep(section: HTMLElement, errBox: HTMLElement | null): boolean {
+    if (errBox) errBox.hidden = true;
     for (const el of section.querySelectorAll<HTMLInputElement>('input[required]')) {
-      if (!el.reportValidity()) return false;
+      if (el.checkValidity()) continue;
+      if (errBox) {
+        errBox.textContent = this.messageChamp(el);
+        errBox.hidden = false;
+      }
+      el.focus();
+      el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      return false;
     }
     return true;
   }
 
+  /** Message lisible pour un champ invalide, base sur son libelle. */
+  private messageChamp(el: HTMLInputElement): string {
+    if (el.type === 'checkbox') {
+      return "Merci de cocher la case d'acceptation pour recevoir votre estimation.";
+    }
+    const racine = el.getRootNode() as ShadowRoot | Document;
+    const label = el.id ? racine.querySelector(`label[for="${el.id}"]`)?.textContent?.trim() : undefined;
+    if (!el.value.trim()) return label ? `Merci de renseigner le champ « ${label} ».` : 'Merci de remplir tous les champs.';
+    return label ? `Le champ « ${label} » est invalide.` : 'Un champ est invalide.';
+  }
+
   private async submit(wrap: HTMLElement, form: HTMLFormElement, show: (s: string) => void): Promise<void> {
-    const errBox = wrap.querySelector('.err') as HTMLElement;
+    const errBox = wrap.querySelector('[data-err="2"]') as HTMLElement;
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-    if (!this.validStep(wrap.querySelector('[data-step="2"]') as HTMLElement)) return;
+    if (!this.validStep(wrap.querySelector('[data-step="2"]') as HTMLElement, errBox)) return;
     const fd = new FormData(form);
     const payload: EstimatePayload = {
       tenantId: this.o.tenantId,
@@ -298,9 +349,12 @@ export class EstimoWidget {
         : 'Estimation indicative, non contractuelle.';
 
       show('result');
-    } catch {
+    } catch (err) {
+      // On garde la cause exacte en console : sans ca, un 403 origine_non_autorisee
+      // ou un 400 de validation etait indiscernable d'une panne reseau.
+      console.error('[estimo] echec de l\'estimation :', err);
       errBox.hidden = false;
-      errBox.textContent = "Une erreur est survenue. Merci de réessayer dans un instant.";
+      errBox.textContent = messageErreur(err);
       btn.disabled = false;
       btn.textContent = 'Obtenir mon estimation';
     }
