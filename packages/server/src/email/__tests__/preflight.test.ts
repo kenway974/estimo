@@ -29,18 +29,18 @@ describe('checkTenantMail', () => {
   it('signale une cle Brevo absente', () => {
     const p = errors(tenant({ secrets: {} }));
     expect(p).toHaveLength(1);
-    expect(p[0].fix).toContain('ACME_MAIL_API_KEY');
+    expect(p[0]?.fix).toContain('ACME_MAIL_API_KEY');
   });
 
   it('attrape le piege de la cle SMTP Brevo utilisee comme cle API', () => {
     const p = errors(tenant({ secrets: { mailApiKey: 'xsmtpsib-oups' } }));
     expect(p).toHaveLength(1);
-    expect(p[0].message).toContain('xsmtpsib-');
+    expect(p[0]?.message).toContain('xsmtpsib-');
   });
 
   it('derive le prefixe des variables depuis l id du tenant', () => {
     const p = errors(tenant({ id: 'demo-idf', secrets: {} }));
-    expect(p[0].fix).toContain('DEMO_IDF_MAIL_API_KEY');
+    expect(p[0]?.fix).toContain('DEMO_IDF_MAIL_API_KEY');
   });
 
   it('signale une SMTP_URL absente ou mal formee', () => {

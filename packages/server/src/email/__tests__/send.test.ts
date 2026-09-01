@@ -60,7 +60,7 @@ describe('sendMail', () => {
       attachments: [{ filename: 'estimation.pdf', content: Buffer.from('pdf'), contentType: 'application/pdf' }],
     };
     await sendMail(p, avecPj, log);
-    expect(recu[0].replyTo).toBe('prospect@example.com');
-    expect(recu[0].attachments?.[0].filename).toBe('estimation.pdf');
+    expect(recu[0]?.replyTo).toBe('prospect@example.com');
+    expect(recu[0]?.attachments?.[0]?.filename).toBe('estimation.pdf');
   });
 });
