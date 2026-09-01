@@ -12,8 +12,8 @@
     "primaryColor": "#2563eb",
     "accentColor": "#1e40af"
   },
-  "mail": { "provider": "brevo", "fromEmail": "estimation@agence-demo.re", "fromName": "Agence Demo" },
-  "agencyEmail": "contact@agence-demo.re",
+  "mail": { "provider": "brevo", "fromEmail": "tikenspam2@gmail.com", "fromName": "Agence Demo" },
+  "agencyEmail": "tikenspam2@gmail.com",
   "crm": {
     "provider": "none"
   },

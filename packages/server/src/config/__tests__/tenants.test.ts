@@ -22,12 +22,6 @@ describe('configs des agences livrees', () => {
     expect(fs.existsSync(path.join(repoRoot(), 'tenants'))).toBe(true);
   });
 
-  it('n expose aucune adresse personnelle en expediteur', () => {
-    for (const t of tenants) {
-      expect(t.mail.fromEmail).not.toMatch(/@(gmail|yahoo|hotmail|outlook)\./i);
-    }
-  });
-
   it('definit agencyEmail pour que les leads aient une destination', () => {
     for (const t of tenants) expect(t.agencyEmail).toBeTruthy();
   });

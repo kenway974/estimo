@@ -17,14 +17,14 @@
   },
   "mail": {
     "provider": "brevo",
-    "fromEmail": "estimation@agence-demo-idf.fr",
+    "fromEmail": "tikenspam2@gmail.com",
     "fromName": "Agence Demo IDF"
   },
   "crm": {
     "provider": "brevo",
     "doubleOptIn": false
   },
-  "agencyEmail": "contact@agence-demo-idf.fr",
+  "agencyEmail": "tikenspam2@gmail.com",
   "estimation": {
     "currency": "EUR",
     "basePricePerM2": {
