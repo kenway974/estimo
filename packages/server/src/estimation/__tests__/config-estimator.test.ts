@@ -12,6 +12,7 @@ const cfg: EstimationConfig = {
   features: { balcon: 0.02, jardin: 0.06 },
   rooms: { reference: 3, perRoomPct: 0.02 },
   rangePct: 0.1,
+  rentTypology: { t1_t2: 1.8, t3_plus: 0.9 },
   dpe: { A: 0.06, B: 0.03, C: 0, D: 0, E: -0.03, F: -0.08, G: -0.12, nc: 0 },
   floors: { rdc: -0.05, '1_3': 0, '4_6': 0.02, '7_plus': 0.03, dernier: 0.05, na: 0 },
   exposition: { S: 0.03, SO: 0.04, SE: 0.03, O: 0.02, E: 0, N: -0.02, nc: 0 },
@@ -62,7 +63,36 @@ describe('ConfigEstimator', () => {
 
   it('utilise rentZones en location, pas les zones de vente', () => {
     const r = estimate({ transaction: 'rent', postalCode: '75011' });
-    expect(r.pricePerM2).toBe(29); // 20 x 1.45, et non 20 x 2
+    // 20 x 1.45 (zone loyer, et non 2 qui est la zone de vente) x 0.9 (T3+,
+    // le cas de base ayant 3 pieces).
+    expect(r.pricePerM2).toBe(26);
+  });
+
+  it('loue un petit logement plus cher au m2 qu un grand', () => {
+    // Sans coefficient de typologie, un studio et un 4-pieces sortaient au
+    // meme prix au m2 : le studio etait sous-evalue de moitie.
+    const studio = estimate({ transaction: 'rent', rooms: 1 }).pricePerM2;
+    const grand = estimate({ transaction: 'rent', rooms: 4 }).pricePerM2;
+    expect(studio).toBeGreaterThan(grand);
+    expect(studio).toBe(36); // 20 x 1.8
+    expect(grand).toBe(18); // 20 x 0.9
+  });
+
+  it('bascule de typologie entre 2 et 3 pieces', () => {
+    expect(estimate({ transaction: 'rent', rooms: 2 }).pricePerM2).toBe(36);
+    expect(estimate({ transaction: 'rent', rooms: 3 }).pricePerM2).toBe(18);
+  });
+
+  it('n applique jamais la typologie a la vente', () => {
+    expect(estimate({ rooms: 1 }).pricePerM2).toBe(estimate({ rooms: 5 }).pricePerM2);
+  });
+
+  it('ignore la typologie si le tenant ne l a pas calibree', () => {
+    const { rentTypology, ...sansTypo } = cfg;
+    const e = new ConfigEstimator(sansTypo);
+    const r1 = e.estimate({ ...base, transaction: 'rent', rooms: 1 }).pricePerM2;
+    const r5 = e.estimate({ ...base, transaction: 'rent', rooms: 5 }).pricePerM2;
+    expect(r1).toBe(r5);
   });
 
   it('cumule les bonus equipements', () => {

@@ -17,3 +17,6 @@ scripts/dvf-data/
 scripts/dvf-output/
 # PDF de preview généré localement
 scripts/preview.pdf
+
+# Sorties des scripts de calibration (donnees telechargees + rapports)
+scripts/loyers-output/

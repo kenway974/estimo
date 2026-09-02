@@ -8,7 +8,7 @@ function roundNice(value: number, transaction: 'sale' | 'rent'): number {
 
 /**
  * Estimateur par coefficients. Formule :
- *   prix_m2 = base[transaction] x type x etat x zone
+ *   prix_m2 = base[transaction] x type x etat x zone x typologie(location)
  *   total   = prix_m2 x surface x (1 + bonus_equipements + bonus_pieces)
  * Tous les facteurs viennent de la config de l'agence -> aucun "magic number".
  */
@@ -25,7 +25,16 @@ export class ConfigEstimator implements Estimator {
     const zoneMult =
       zoneTable[input.postalCode] ?? zoneTable[input.city.toLowerCase()] ?? zoneTable.default ?? 1;
 
-    const pricePerM2 = base * typeMult * condMult * zoneMult;
+    // Typologie : uniquement en location, et seulement si le tenant l'a calibree.
+    // En vente l'effet de taille est deja porte par le prix au m2 lui-meme.
+    const typologyMult =
+      input.transaction === 'rent' && cfg.rentTypology
+        ? input.rooms <= 2
+          ? cfg.rentTypology.t1_t2
+          : cfg.rentTypology.t3_plus
+        : 1;
+
+    const pricePerM2 = base * typeMult * condMult * zoneMult * typologyMult;
 
     const featureBonus = input.features.reduce((sum, f) => sum + (cfg.features[f] ?? 0), 0);
     const roomBonus = Math.max(0, input.rooms - cfg.rooms.reference) * cfg.rooms.perRoomPct;

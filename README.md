@@ -66,7 +66,8 @@ Dev du widget avec rechargement : `npm run dev:widget`.
 | `npm run build`         | build widget + serveur                               |
 | `npm start`             | lance l'API compilée                                 |
 | `npm run typecheck`     | vérifie les types (serveur + widget)                 |
-| `npm run calibrate:dvf` | recalibre `tenants/demo-idf.json` depuis les données DVF |
+| `npm run calibrate:dvf` | recalibre les prix de **vente** depuis les données DVF |
+| `npm run calibrate:loyers` | recalibre les **loyers** depuis la « Carte des loyers » (ANIL) |
 
 ## Variables d'environnement
 Voir `.env.example`. Variables serveur (`PORT`, `LOG_LEVEL`, `TENANTS_DIR`,
@@ -91,7 +92,9 @@ Ajouter une agence : [`docs/ADDING-A-TENANT.md`](./docs/ADDING-A-TENANT.md).
 Tout est dans le bloc `estimation` de `tenants/<id>.json` (prix au m², zones,
 types, état, équipements, fourchette).
 
-**Calibration automatique disponible** pour l'Île-de-France via :
+**Calibration automatique disponible** pour l'Île-de-France.
+
+### Vente — données DVF
 ```bash
 npm run calibrate:dvf
 ```
@@ -99,6 +102,24 @@ npm run calibrate:dvf
 mono-lot Appart/Maison, calcule la médiane prix/m² par code postal, et écrit
 `tenants/demo-idf.json` + un rapport `scripts/dvf-output/report.md`. Adaptable
 à n'importe quel département en éditant `DEPARTMENTS` dans le script.
+
+### Location — Carte des loyers
+```bash
+npm run calibrate:loyers
+npm run calibrate:loyers -- --tenant=demo --departments=974
+```
+DVF ne contient **aucune donnée locative**. La source est la
+[« Carte des loyers »](https://www.data.gouv.fr/datasets/carte-des-loyers-indicateurs-de-loyers-dannonce-par-commune-en-2025)
+(ANIL + Ministère de la Transition écologique) : loyer médian au m² par commune,
+décliné en quatre typologies. Le script écrit `basePricePerM2.rent`, `rentZones`
+et `rentTypology`, plus un rapport `scripts/loyers-output/report.md`.
+
+`rentTypology` corrige un biais majeur : sans lui, un studio et un 4-pièces
+sortaient au **même prix au m²**, alors qu'un petit logement se loue bien plus
+cher au m². Le découpage T1-T2 / T3+ est celui de la source.
+
+> ⚠️ Ce sont des **loyers d'annonce, charges comprises**, sur du non meublé —
+> pas des loyers signés. À indiquer au prospect.
 
 ## Sécurité
 - Validation systématique des entrées (Zod), côté serveur.
