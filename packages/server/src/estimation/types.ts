@@ -17,6 +17,15 @@ export const EstimationConfigSchema = z.object({
   // Multiplicateurs de zone spécifiques aux loyers (dispersion plus compressée que la vente).
   // Si absent, on retombe sur `zones`. Clé = code postal OU ville (minuscules).
   rentZones: z.record(z.string(), z.number().positive()).optional(),
+  // Multiplicateur de loyer selon la typologie, appliqué UNIQUEMENT en location.
+  // Un petit logement se loue nettement plus cher au m2 qu'un grand : un studio
+  // tourne autour de 30-35 EUR/m2 la ou un 4-pieces est a 16-18. Sans ce
+  // coefficient, le loyer d'un studio etait sous-evalue de moitie.
+  // Decoupage aligne sur celui de la "Carte des loyers" (ANIL), seule source
+  // publique qui distingue les typologies : T1-T2 et T3 et plus.
+  rentTypology: z
+    .object({ t1_t2: z.number().positive(), t3_plus: z.number().positive() })
+    .optional(),
   // Bonus additif (en %) par équipement coché. Ex: { "parking": 0.03, "piscine": 0.07 }
   features: z.record(z.string(), z.number()).default({}),
   // Ajustement additif (%) selon le nombre de pièces au-delà de la référence.
